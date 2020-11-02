@@ -1,6 +1,7 @@
 
 .header {
   position: fixed;
+  z-index: 100;
   top: 0;
   width: 100vw;
   background-color: var(--color-dark-blue);
@@ -55,5 +56,36 @@
 }
 
 .pageContent {
-  margin-top: 110px
+  margin-top: 110px;
+  width: 100%;
+  max-width: 100vw;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 350px);
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .header {
+    height: 210px;
+  }
+
+  .header .headerContent {
+    flex-direction: column;
+  }
+
+  .header .headerContent input {
+    margin: 15px 0px;
+  }
+
+  .pageContent {
+    margin-top: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header .headerContent input {
+    width: 80%;
+  }
 }

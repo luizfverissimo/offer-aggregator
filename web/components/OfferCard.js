@@ -5,8 +5,11 @@ import styles from './OfferCard.module.css';
 export default function Card() {
   return (
     <div className={styles.card}>
+      <div className={styles.storeTag}>
+        AMAZON
+      </div>
       <div className={styles.cardImageContainer}>
-        <img src='https://a-static.mlcdn.com.br/618x463/controle-para-ps4-sem-fio-dualshock-4-sony-preto/magazineluiza/043179500/335834b5fb0892a78b9e827251a75414.jpg' />
+        <img src='https://compass-ssl.xbox.com/assets/f0/85/f085c120-d3d5-4424-8b70-eb25deaa326e.png?n=XBX_A-BuyBoxBGImage01-D.png' />
       </div>
       <h3 className={styles.cardTitle}>Controle Dualshock 4</h3>
       <div className={styles.cardPrice}>
@@ -15,7 +18,7 @@ export default function Card() {
           <span>R$</span>150<span>,00</span>
         </h4>
         <p className={styles.cardPriceDescription}>À vista</p>
-        <p className={styles.cardPriceSave}>Economize 50 reais</p>
+        <p className={styles.cardPriceSave}>Economize 50 reais!</p>
       </div>
 
       <div className={styles.cardButtonContainer}>

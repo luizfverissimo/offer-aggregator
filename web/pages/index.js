@@ -26,12 +26,21 @@ export default function Home() {
             <input type='text' placeholder='🔎 Pesquise por um produto' />
 
             <Link href='/'>
-              <a className={styles.enviarPromo}>Enviar promoção</a>
+              <a className={styles.enviarPromo}><img src={require('../public/price-tag.svg')} width={24} height={24} /> Enviar promoção</a>
             </Link>
           </div>
         </div>
 
         <section className={styles.pageContent}>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
           <Card />
         </section>
       </main>
