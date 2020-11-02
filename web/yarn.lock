@@ -1134,6 +1134,36 @@
   dependencies:
     mkdirp "^1.0.4"
 
+"@prisma/bar@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@prisma/bar/-/bar-0.0.0.tgz#9daff159a1a09abf7665a8b6e40ddc1fdc1ed4f7"
+  integrity sha512-3nez9n/vMyAr4+nmqj6Xh3cGZbreYHr3RWX0vgtrFRpiN6otuCzL+9HW8MW/DfZNuFz5YyIdfwnRSPueUZPoWQ==
+
+"@prisma/cli@^2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.10.1.tgz#e99ebff7290e27c13062543f464f169448e5587c"
+  integrity sha512-I+51GBJyuGS5xsCl8pf4XfTt9HIdhCJQoaGCA9KLDzVRbFHElMQ++hhyhLohJ4buFZlSagIq8NI8yIC5yu+Wkg==
+  dependencies:
+    "@prisma/bar" "^0.0.0"
+    "@prisma/engines" "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+
+"@prisma/client@^2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.10.1.tgz#96fe79ad0d7763d0eda1ea91870a8882e4dbb21f"
+  integrity sha512-VwasxCCwdRmrcVVoLwXTEbwrBiqOYr2Umqw9btvMvHGRhA1nRKCvmt7SCiCjGrx6CuC8eCG/HGxruv04001YKQ==
+  dependencies:
+    "@prisma/engines-version" "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+
+"@prisma/engines-version@2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111":
+  version "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111.tgz#7f96aa61085fc803f81b3df0fa32297909ce4b08"
+  integrity sha512-OuOSTvEzXJwCJzNqZ9N/+J3lO64HgX9uGiVOuvlTrRSXoLZk0Q2IiLAx8qhY1U7jPpHJ7LTlZuGNScimqonpJg==
+
+"@prisma/engines@2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111":
+  version "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111.tgz#614e82316270333d31a1581e533ef0c275b2b5f6"
+  integrity sha512-F/I8mmYMQnEFX47jl7Su8Pmvpua1wti9Uq3IUlSCqLQsrOmuMj+GKQ5nYEewmcynqBlyVcpUyxF5iAWbmUVdjw==
+
 "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -4718,6 +4748,11 @@ split-string@^3.0.1, split-string@^3.0.2:
   integrity sha512-NzNVhJDYpwceVVii8/Hu6DKfD2G+NrQHlS/V/qgv763EYudVwEcMQNxd2lh+0VrUByXN/oJkl5grOhYWvQUYiw==
   dependencies:
     extend-shallow "^3.0.0"
+
+sqlite@^4.0.15:
+  version "4.0.15"
+  resolved "https://registry.yarnpkg.com/sqlite/-/sqlite-4.0.15.tgz#071e0577afb327fbd74a75354ea15964378392e3"
+  integrity sha512-irPPTrbVoDvwzRGpe0v8vxpNwMl+q0tXQzffQTcCUnaJzQFO0hfLLvFwGDKxd6vYBuvEr3uvPkObVoGOvVsmzA==
 
 ssri@^6.0.1:
   version "6.0.1"
