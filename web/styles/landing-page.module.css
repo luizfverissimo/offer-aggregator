@@ -11,7 +11,7 @@
   justify-content: center;
 }
 
-.header .content {
+.header .headerContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,7 +21,7 @@
 
 }
 
-.header input {
+.header .headerContent input {
   width: 460px;
   height: 50px;
 
@@ -37,13 +37,23 @@
   border-radius: 8px;
 }
 
-.header input::placeholder {
+.header .headerContent input::placeholder {
   color: var(--color-light-blue);
 }
 
-.header .enviarPromo {
+.header .headerContent .enviarPromo {
   font-family: Roboto, sans-serif;
   font-weight: 700;
   color: var(--color-green);
   font-size: 18px;
+
+  transition: color 0.2s;
+}
+
+.header .headerContent .enviarPromo:hover {
+  color: #fff;
+}
+
+.pageContent {
+  margin-top: 100px
 }

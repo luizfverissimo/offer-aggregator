@@ -1,4 +1,8 @@
 import Head from 'next/head';
+import Link from 'next/link';
+
+import Card from '../components/OfferCard.js';
+
 import styles from '../styles/landing-page.module.css';
 
 export default function Home() {
@@ -13,7 +17,7 @@ export default function Home() {
 
       <main>
         <div className={styles.header}>
-          <div className={styles.content}>
+          <div className={styles.headerContent}>
             <img
               src={require('../public/logo.svg')}
               alt='Super Oferta do Dia - Logo'
@@ -21,9 +25,15 @@ export default function Home() {
 
             <input type='text' placeholder='🔎 Pesquise por um produto' />
 
-            <div className={styles.enviarPromo}>Enviar promoção</div>
+            <Link href='/'>
+              <a className={styles.enviarPromo}>Enviar promoção</a>
+            </Link>
           </div>
         </div>
+
+        <section className={styles.pageContent}>
+          <Card />
+        </section>
       </main>
     </>
   );
