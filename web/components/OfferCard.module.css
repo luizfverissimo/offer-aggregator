@@ -1,0 +1,137 @@
+.card {
+  background-color: #ffff;
+  padding: 10px;
+  width: 300px;
+  height: 435px;
+
+  margin: 10px;
+
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  box-shadow: 0px 5px 9px 3px rgba(0, 0, 0, 0.15);
+}
+
+.card .cardImageContainer {
+  width: 90%;
+  height: 200px;
+  margin-top: 10px;
+
+  overflow: hidden;
+}
+
+.card .cardImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card .cardTitle {
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-black);
+  text-align: center;
+}
+
+.card .cardPrice {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-top: 10px;
+}
+
+.card .cardPrice .cardPriceDe {
+  font-size: 14px;
+  color: var(--color-red);
+  font-weight: bold;
+  text-decoration: line-through;
+  text-align: left;
+
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.card .cardPrice .cardPricePor {
+  font-size: 48px;
+  color: var(--color-green);
+  font-weight: bold;
+
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+
+  line-height: 0;
+
+  text-align: right;
+}
+
+.card .cardPrice .cardPricePor span {
+  font-size: 18px;
+}
+
+.card .cardPrice .cardPriceDescription {
+  font-size: 12px;
+  color: var(--color-black);
+  text-align: right;
+  margin-top: 20px;
+}
+
+.card .cardPrice .cardPriceSave {
+  font-size: 14px;
+  color: var(--color-green);
+  text-align: left;
+  font-weight: bold;
+
+  margin: 0;
+  padding: 0;
+
+  margin-bottom: 10px;
+}
+
+.card .cardButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 70%
+}
+
+.card .cardButtonContainer button {
+  background-color: var(--color-green);
+  width: 100%;
+  height: 42px;
+  border: 0;
+  border-radius: 8px;
+
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+  color: #fff;
+
+  transition: background-color 0.2s;
+}
+
+.card .cardButtonContainer button:hover {
+  background-color: #28b8a0;
+}
+
+.card footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 12px;
+  color: var(--color-black)
+}
+
+.card footer span {
+  font-style: italic;
+}

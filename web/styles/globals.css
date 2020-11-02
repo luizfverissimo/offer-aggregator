@@ -11,8 +11,6 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: 'Roboto', sans-serif;
   background-color: var(--color-background);
 }
@@ -20,10 +18,6 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 
