@@ -1,11 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
-import Card from '../components/OfferCard.js';
+import Card from '../components/OfferCard';
 
 import styles from '../styles/landing-page.module.css';
 
-export default function Home() {
+export async function getServerSideProps() {
+  const res = await fetch('http://localhost:3000/api/index-offers')
+  const offers = await res.json()
+
+  return {
+    props: { offers }
+  }
+}
+
+export default function Home({offers}) {
   return (
     <>
       <Head>
@@ -32,16 +41,23 @@ export default function Home() {
         </div>
 
         <section className={styles.pageContent}>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {offers.map((offer, index) => {
+            return (
+              <Card
+                key={index}
+                active={offer.active}
+                name={offer.name}
+                urlImage={offer.urlImage}
+                urlOffer={offer.urlOffer}
+                offerPrice={offer.offerPrice}
+                normalPrice={offer.normalPrice}
+                offerText={offer.offerText}
+                store={offer.store}
+                author={offer.author.name}
+                createdAt={offer.createdAt}
+              />
+            )
+          })}
         </section>
       </main>
     </>

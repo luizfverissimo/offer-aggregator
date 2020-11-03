@@ -424,6 +424,7 @@ export declare class PrismaClient<
 
 export declare const OfferDistinctFieldEnum: {
   id: 'id',
+  active: 'active',
   name: 'name',
   urlImage: 'urlImage',
   urlOffer: 'urlOffer',
@@ -465,6 +466,7 @@ export declare type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 export type Offer = {
   id: number
+  active: boolean
   name: string
   urlImage: string
   urlOffer: string
@@ -569,6 +571,7 @@ export type GetOfferAggregateScalarType<T extends any> = {
 
 export type OfferSelect = {
   id?: boolean
+  active?: boolean
   name?: boolean
   urlImage?: boolean
   urlOffer?: boolean
@@ -1551,12 +1554,13 @@ export type OfferWhereInput = {
   OR?: OfferWhereInput | Enumerable<OfferWhereInput>
   NOT?: OfferWhereInput | Enumerable<OfferWhereInput>
   id?: IntFilter | number
+  active?: BoolFilter | boolean
   name?: StringFilter | string
   urlImage?: StringFilter | string
   urlOffer?: StringFilter | string
   description?: StringFilter | string
-  offerPrice?: FloatFilter | number
-  normalPrice?: FloatFilter | number
+  offerPrice?: IntFilter | number
+  normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
   createdAt?: StringFilter | string
@@ -1566,6 +1570,7 @@ export type OfferWhereInput = {
 
 export type OfferOrderByInput = {
   id?: SortOrder
+  active?: SortOrder
   name?: SortOrder
   urlImage?: SortOrder
   urlOffer?: SortOrder
@@ -1608,6 +1613,7 @@ export type UserWhereUniqueInput = {
 }
 
 export type OfferCreateInput = {
+  active: boolean
   name: string
   urlImage: string
   urlOffer: string
@@ -1621,12 +1627,13 @@ export type OfferCreateInput = {
 }
 
 export type OfferUpdateInput = {
+  active?: boolean | BoolFieldUpdateOperationsInput
   name?: string | StringFieldUpdateOperationsInput
   urlImage?: string | StringFieldUpdateOperationsInput
   urlOffer?: string | StringFieldUpdateOperationsInput
   description?: string | StringFieldUpdateOperationsInput
-  offerPrice?: number | FloatFieldUpdateOperationsInput
-  normalPrice?: number | FloatFieldUpdateOperationsInput
+  offerPrice?: number | IntFieldUpdateOperationsInput
+  normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
@@ -1634,12 +1641,13 @@ export type OfferUpdateInput = {
 }
 
 export type OfferUpdateManyMutationInput = {
+  active?: boolean | BoolFieldUpdateOperationsInput
   name?: string | StringFieldUpdateOperationsInput
   urlImage?: string | StringFieldUpdateOperationsInput
   urlOffer?: string | StringFieldUpdateOperationsInput
   description?: string | StringFieldUpdateOperationsInput
-  offerPrice?: number | FloatFieldUpdateOperationsInput
-  normalPrice?: number | FloatFieldUpdateOperationsInput
+  offerPrice?: number | IntFieldUpdateOperationsInput
+  normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
@@ -1679,6 +1687,11 @@ export type IntFilter = {
   not?: number | NestedIntFilter
 }
 
+export type BoolFilter = {
+  equals?: boolean
+  not?: boolean | NestedBoolFilter
+}
+
 export type StringFilter = {
   equals?: string
   in?: Enumerable<string>
@@ -1691,17 +1704,6 @@ export type StringFilter = {
   startsWith?: string
   endsWith?: string
   not?: string | NestedStringFilter
-}
-
-export type FloatFilter = {
-  equals?: number
-  in?: Enumerable<number>
-  notIn?: Enumerable<number>
-  lt?: number
-  lte?: number
-  gt?: number
-  gte?: number
-  not?: number | NestedFloatFilter
 }
 
 export type UserRelationFilter = {
@@ -1720,11 +1722,15 @@ export type UserCreateOneWithoutOfferInput = {
   connect?: UserWhereUniqueInput
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type FloatFieldUpdateOperationsInput = {
+export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
@@ -1767,6 +1773,11 @@ export type NestedIntFilter = {
   not?: number | NestedIntFilter
 }
 
+export type NestedBoolFilter = {
+  equals?: boolean
+  not?: boolean | NestedBoolFilter
+}
+
 export type NestedStringFilter = {
   equals?: string
   in?: Enumerable<string>
@@ -1779,17 +1790,6 @@ export type NestedStringFilter = {
   startsWith?: string
   endsWith?: string
   not?: string | NestedStringFilter
-}
-
-export type NestedFloatFilter = {
-  equals?: number
-  in?: Enumerable<number>
-  notIn?: Enumerable<number>
-  lt?: number
-  lte?: number
-  gt?: number
-  gte?: number
-  not?: number | NestedFloatFilter
 }
 
 export type UserCreateWithoutOfferInput = {
@@ -1812,6 +1812,7 @@ export type UserUpsertWithoutOfferInput = {
 }
 
 export type OfferCreateWithoutAuthorInput = {
+  active: boolean
   name: string
   urlImage: string
   urlOffer: string
@@ -1838,12 +1839,13 @@ export type OfferScalarWhereInput = {
   OR?: OfferScalarWhereInput | Enumerable<OfferScalarWhereInput>
   NOT?: OfferScalarWhereInput | Enumerable<OfferScalarWhereInput>
   id?: IntFilter | number
+  active?: BoolFilter | boolean
   name?: StringFilter | string
   urlImage?: StringFilter | string
   urlOffer?: StringFilter | string
   description?: StringFilter | string
-  offerPrice?: FloatFilter | number
-  normalPrice?: FloatFilter | number
+  offerPrice?: IntFilter | number
+  normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
   createdAt?: StringFilter | string
@@ -1857,24 +1859,26 @@ export type OfferUpsertWithWhereUniqueWithoutAuthorInput = {
 }
 
 export type OfferUpdateWithoutAuthorDataInput = {
+  active?: boolean | BoolFieldUpdateOperationsInput
   name?: string | StringFieldUpdateOperationsInput
   urlImage?: string | StringFieldUpdateOperationsInput
   urlOffer?: string | StringFieldUpdateOperationsInput
   description?: string | StringFieldUpdateOperationsInput
-  offerPrice?: number | FloatFieldUpdateOperationsInput
-  normalPrice?: number | FloatFieldUpdateOperationsInput
+  offerPrice?: number | IntFieldUpdateOperationsInput
+  normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
 }
 
 export type OfferUpdateManyDataInput = {
+  active?: boolean | BoolFieldUpdateOperationsInput
   name?: string | StringFieldUpdateOperationsInput
   urlImage?: string | StringFieldUpdateOperationsInput
   urlOffer?: string | StringFieldUpdateOperationsInput
   description?: string | StringFieldUpdateOperationsInput
-  offerPrice?: number | FloatFieldUpdateOperationsInput
-  normalPrice?: number | FloatFieldUpdateOperationsInput
+  offerPrice?: number | IntFieldUpdateOperationsInput
+  normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput

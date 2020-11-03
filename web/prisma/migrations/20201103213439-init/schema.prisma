@@ -12,12 +12,24 @@ generator client {
 
 model Offer {
   id Int @id @default(autoincrement())
+  active Boolean
   name String
   urlImage String
   urlOffer String
-  descroption String
-  offerPrice Float
-  normalPrice Float
+  description String
+  offerPrice Int
+  normalPrice Int
   offerText String
   store String
+  createdAt String
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  role String @default("USER")
+  password String
 }
