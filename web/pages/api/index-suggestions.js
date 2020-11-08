@@ -8,14 +8,7 @@ export default async function (req, res) {
     res.json({ error: `This endpoint do not receive ${req.method} request`})
     return
   }
-  const offers = await prisma.offer.findMany({
-    include: {
-      author: {
-        select: {
-          name: true
-        }
-      }
-    },
+  const offers = await prisma.offerSuggestion.findMany({
     orderBy: { createdAt: 'desc' }
   });
 

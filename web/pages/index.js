@@ -1,20 +1,36 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 
+import Modal from '../components/Modal';
 import Card from '../components/OfferCard';
 
+import api from '../services/api';
 import styles from '../styles/landing-page.module.css';
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/api/index-offers')
-  const offers = await res.json()
+  const res = await api.get('/index-offers');
+  const offers = await res.data;
 
   return {
     props: { offers }
-  }
+  };
 }
 
-export default function Home({offers}) {
+export default function Home({ offers }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [offerLink, setOfferLink] = useState('');
+
+  async function submitOfferLinkHandler() {
+    const res = await api.post('/create-suggestion', {
+      offerLink
+    });
+
+    setIsOpen(false)
+    setOfferLink('')
+    alert("Sua sugestão de promoção foi enviado com sucesso, agradecemos a sua colaboração!")
+  }
+
   return (
     <>
       <Head>
@@ -23,6 +39,15 @@ export default function Home({offers}) {
         </title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
+      {isOpen && (
+        <Modal
+          onClickCloseModal={() => setIsOpen(false)}
+          submitSuggestion={submitOfferLinkHandler}
+          value={offerLink}
+          onChange={(e) => setOfferLink(e.target.value)}
+        />
+      )}
 
       <main>
         <div className={styles.header}>
@@ -34,9 +59,14 @@ export default function Home({offers}) {
 
             <input type='text' placeholder='🔎 Pesquise por um produto' />
 
-            <Link href='/'>
-              <a className={styles.enviarPromo}><img src={require('../public/price-tag.svg')} width={24} height={24} /> Enviar promoção</a>
-            </Link>
+            <a className={styles.enviarPromo} onClick={() => setIsOpen(true)}>
+              <img
+                src={require('../public/price-tag.svg')}
+                width={24}
+                height={24}
+              />{' '}
+              Enviar promoção
+            </a>
           </div>
         </div>
 
@@ -56,7 +86,7 @@ export default function Home({offers}) {
                 author={offer.author.name}
                 createdAt={offer.createdAt}
               />
-            )
+            );
           })}
         </section>
       </main>

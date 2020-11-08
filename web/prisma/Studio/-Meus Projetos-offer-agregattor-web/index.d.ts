@@ -411,6 +411,16 @@ export declare class PrismaClient<
     * ```
     */
   get user(): UserDelegate;
+
+  /**
+   * `prisma.offerSuggestion`: Exposes CRUD operations for the **OfferSuggestion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OfferSuggestions
+    * const offerSuggestions = await prisma.offerSuggestion.findMany()
+    * ```
+    */
+  get offerSuggestion(): OfferSuggestionDelegate;
 }
 
 
@@ -434,6 +444,7 @@ export declare const OfferDistinctFieldEnum: {
   offerText: 'offerText',
   store: 'store',
   createdAt: 'createdAt',
+  createdAtDb: 'createdAtDb',
   authorId: 'authorId'
 };
 
@@ -445,10 +456,21 @@ export declare const UserDistinctFieldEnum: {
   name: 'name',
   email: 'email',
   role: 'role',
-  password: 'password'
+  password: 'password',
+  createdAtDb: 'createdAtDb'
 };
 
 export declare type UserDistinctFieldEnum = (typeof UserDistinctFieldEnum)[keyof typeof UserDistinctFieldEnum]
+
+
+export declare const OfferSuggestionDistinctFieldEnum: {
+  id: 'id',
+  offerLink: 'offerLink',
+  createdAtDb: 'createdAtDb',
+  createdAt: 'createdAt'
+};
+
+export declare type OfferSuggestionDistinctFieldEnum = (typeof OfferSuggestionDistinctFieldEnum)[keyof typeof OfferSuggestionDistinctFieldEnum]
 
 
 export declare const SortOrder: {
@@ -476,6 +498,7 @@ export type Offer = {
   offerText: string
   store: string
   createdAt: string
+  createdAtDb: Date
   authorId: number
 }
 
@@ -581,6 +604,7 @@ export type OfferSelect = {
   offerText?: boolean
   store?: boolean
   createdAt?: boolean
+  createdAtDb?: boolean
   author?: boolean | UserArgs
   authorId?: boolean
 }
@@ -1031,6 +1055,7 @@ export type User = {
   email: string
   role: string
   password: string
+  createdAtDb: Date
 }
 
 
@@ -1105,6 +1130,7 @@ export type UserSelect = {
   email?: boolean
   role?: boolean
   password?: boolean
+  createdAtDb?: boolean
   Offer?: boolean | FindManyOfferArgs
 }
 
@@ -1545,6 +1571,484 @@ export type UserArgs = {
 
 
 /**
+ * Model OfferSuggestion
+ */
+
+export type OfferSuggestion = {
+  id: number
+  offerLink: string
+  createdAtDb: Date
+  createdAt: string
+}
+
+
+export type AggregateOfferSuggestion = {
+  count: number
+  avg: OfferSuggestionAvgAggregateOutputType | null
+  sum: OfferSuggestionSumAggregateOutputType | null
+  min: OfferSuggestionMinAggregateOutputType | null
+  max: OfferSuggestionMaxAggregateOutputType | null
+}
+
+export type OfferSuggestionAvgAggregateOutputType = {
+  id: number
+}
+
+export type OfferSuggestionSumAggregateOutputType = {
+  id: number
+}
+
+export type OfferSuggestionMinAggregateOutputType = {
+  id: number
+}
+
+export type OfferSuggestionMaxAggregateOutputType = {
+  id: number
+}
+
+
+export type OfferSuggestionAvgAggregateInputType = {
+  id?: true
+}
+
+export type OfferSuggestionSumAggregateInputType = {
+  id?: true
+}
+
+export type OfferSuggestionMinAggregateInputType = {
+  id?: true
+}
+
+export type OfferSuggestionMaxAggregateInputType = {
+  id?: true
+}
+
+export type AggregateOfferSuggestionArgs = {
+  where?: OfferSuggestionWhereInput
+  orderBy?: Enumerable<OfferSuggestionOrderByInput> | OfferSuggestionOrderByInput
+  cursor?: OfferSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Enumerable<OfferSuggestionDistinctFieldEnum>
+  count?: true
+  avg?: OfferSuggestionAvgAggregateInputType
+  sum?: OfferSuggestionSumAggregateInputType
+  min?: OfferSuggestionMinAggregateInputType
+  max?: OfferSuggestionMaxAggregateInputType
+}
+
+export type GetOfferSuggestionAggregateType<T extends AggregateOfferSuggestionArgs> = {
+  [P in keyof T]: P extends 'count' ? number : GetOfferSuggestionAggregateScalarType<T[P]>
+}
+
+export type GetOfferSuggestionAggregateScalarType<T extends any> = {
+  [P in keyof T]: P extends keyof OfferSuggestionAvgAggregateOutputType ? OfferSuggestionAvgAggregateOutputType[P] : never
+}
+    
+    
+
+export type OfferSuggestionSelect = {
+  id?: boolean
+  offerLink?: boolean
+  createdAtDb?: boolean
+  createdAt?: boolean
+}
+
+export type OfferSuggestionGetPayload<
+  S extends boolean | null | undefined | OfferSuggestionArgs,
+  U = keyof S
+> = S extends true
+  ? OfferSuggestion
+  : S extends undefined
+  ? never
+  : S extends OfferSuggestionArgs | FindManyOfferSuggestionArgs
+  ? 'include' extends U
+    ? OfferSuggestion 
+  : 'select' extends U
+    ? {
+      [P in TrueKeys<S['select']>]:P extends keyof OfferSuggestion ? OfferSuggestion[P]
+: 
+ never
+    }
+  : OfferSuggestion
+: OfferSuggestion
+
+
+export interface OfferSuggestionDelegate {
+  /**
+   * Find zero or one OfferSuggestion that matches the filter.
+   * @param {FindOneOfferSuggestionArgs} args - Arguments to find a OfferSuggestion
+   * @example
+   * // Get one OfferSuggestion
+   * const offerSuggestion = await prisma.offerSuggestion.findOne({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findOne<T extends FindOneOfferSuggestionArgs>(
+    args: Subset<T, FindOneOfferSuggestionArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion | null>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T> | null>>
+  /**
+   * Find the first OfferSuggestion that matches the filter.
+   * @param {FindFirstOfferSuggestionArgs} args - Arguments to find a OfferSuggestion
+   * @example
+   * // Get one OfferSuggestion
+   * const offerSuggestion = await prisma.offerSuggestion.findFirst({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findFirst<T extends FindFirstOfferSuggestionArgs>(
+    args?: Subset<T, FindFirstOfferSuggestionArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion | null>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T> | null>>
+  /**
+   * Find zero or more OfferSuggestions that matches the filter.
+   * @param {FindManyOfferSuggestionArgs=} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all OfferSuggestions
+   * const offerSuggestions = await prisma.offerSuggestion.findMany()
+   * 
+   * // Get first 10 OfferSuggestions
+   * const offerSuggestions = await prisma.offerSuggestion.findMany({ take: 10 })
+   * 
+   * // Only select the `id`
+   * const offerSuggestionWithIdOnly = await prisma.offerSuggestion.findMany({ select: { id: true } })
+   * 
+  **/
+  findMany<T extends FindManyOfferSuggestionArgs>(
+    args?: Subset<T, FindManyOfferSuggestionArgs>
+  ): CheckSelect<T, Promise<Array<OfferSuggestion>>, Promise<Array<OfferSuggestionGetPayload<T>>>>
+  /**
+   * Create a OfferSuggestion.
+   * @param {OfferSuggestionCreateArgs} args - Arguments to create a OfferSuggestion.
+   * @example
+   * // Create one OfferSuggestion
+   * const OfferSuggestion = await prisma.offerSuggestion.create({
+   *   data: {
+   *     // ... data to create a OfferSuggestion
+   *   }
+   * })
+   * 
+  **/
+  create<T extends OfferSuggestionCreateArgs>(
+    args: Subset<T, OfferSuggestionCreateArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T>>>
+  /**
+   * Delete a OfferSuggestion.
+   * @param {OfferSuggestionDeleteArgs} args - Arguments to delete one OfferSuggestion.
+   * @example
+   * // Delete one OfferSuggestion
+   * const OfferSuggestion = await prisma.offerSuggestion.delete({
+   *   where: {
+   *     // ... filter to delete one OfferSuggestion
+   *   }
+   * })
+   * 
+  **/
+  delete<T extends OfferSuggestionDeleteArgs>(
+    args: Subset<T, OfferSuggestionDeleteArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T>>>
+  /**
+   * Update one OfferSuggestion.
+   * @param {OfferSuggestionUpdateArgs} args - Arguments to update one OfferSuggestion.
+   * @example
+   * // Update one OfferSuggestion
+   * const offerSuggestion = await prisma.offerSuggestion.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  update<T extends OfferSuggestionUpdateArgs>(
+    args: Subset<T, OfferSuggestionUpdateArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T>>>
+  /**
+   * Delete zero or more OfferSuggestions.
+   * @param {OfferSuggestionDeleteManyArgs} args - Arguments to filter OfferSuggestions to delete.
+   * @example
+   * // Delete a few OfferSuggestions
+   * const { count } = await prisma.offerSuggestion.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   * 
+  **/
+  deleteMany<T extends OfferSuggestionDeleteManyArgs>(
+    args: Subset<T, OfferSuggestionDeleteManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Update zero or more OfferSuggestions.
+   * @param {OfferSuggestionUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many OfferSuggestions
+   * const offerSuggestion = await prisma.offerSuggestion.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  updateMany<T extends OfferSuggestionUpdateManyArgs>(
+    args: Subset<T, OfferSuggestionUpdateManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Create or update one OfferSuggestion.
+   * @param {OfferSuggestionUpsertArgs} args - Arguments to update or create a OfferSuggestion.
+   * @example
+   * // Update or create a OfferSuggestion
+   * const offerSuggestion = await prisma.offerSuggestion.upsert({
+   *   create: {
+   *     // ... data to create a OfferSuggestion
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the OfferSuggestion we want to update
+   *   }
+   * })
+  **/
+  upsert<T extends OfferSuggestionUpsertArgs>(
+    args: Subset<T, OfferSuggestionUpsertArgs>
+  ): CheckSelect<T, Prisma__OfferSuggestionClient<OfferSuggestion>, Prisma__OfferSuggestionClient<OfferSuggestionGetPayload<T>>>
+  /**
+   * Count
+   */
+  count(args?: Omit<FindManyOfferSuggestionArgs, 'select' | 'include'>): Promise<number>
+
+  /**
+   * Aggregate
+   */
+  aggregate<T extends AggregateOfferSuggestionArgs>(args: Subset<T, AggregateOfferSuggestionArgs>): Promise<GetOfferSuggestionAggregateType<T>>
+}
+
+/**
+ * The delegate class that acts as a "Promise-like" for OfferSuggestion.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in 
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export declare class Prisma__OfferSuggestionClient<T> implements Promise<T> {
+  private readonly _dmmf;
+  private readonly _fetcher;
+  private readonly _queryType;
+  private readonly _rootField;
+  private readonly _clientMethod;
+  private readonly _args;
+  private readonly _dataPath;
+  private readonly _errorFormat;
+  private readonly _measurePerformance?;
+  private _isList;
+  private _callsite;
+  private _requestPromise?;
+  constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+  readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+
+  private get _document();
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(onrejected?: ((reason: any) => TResult | Promise<TResult>) | undefined | null): Promise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+}
+
+// Custom InputTypes
+
+/**
+ * OfferSuggestion findOne
+ */
+export type FindOneOfferSuggestionArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * Filter, which OfferSuggestion to fetch.
+  **/
+  where: OfferSuggestionWhereUniqueInput
+}
+
+
+/**
+ * OfferSuggestion findFirst
+ */
+export type FindFirstOfferSuggestionArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * Filter, which OfferSuggestion to fetch.
+  **/
+  where?: OfferSuggestionWhereInput
+  orderBy?: Enumerable<OfferSuggestionOrderByInput> | OfferSuggestionOrderByInput
+  cursor?: OfferSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Enumerable<OfferSuggestionDistinctFieldEnum>
+}
+
+
+/**
+ * OfferSuggestion findMany
+ */
+export type FindManyOfferSuggestionArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * Filter, which OfferSuggestions to fetch.
+  **/
+  where?: OfferSuggestionWhereInput
+  /**
+   * Determine the order of the OfferSuggestions to fetch.
+  **/
+  orderBy?: Enumerable<OfferSuggestionOrderByInput> | OfferSuggestionOrderByInput
+  /**
+   * Sets the position for listing OfferSuggestions.
+  **/
+  cursor?: OfferSuggestionWhereUniqueInput
+  /**
+   * The number of OfferSuggestions to fetch. If negative number, it will take OfferSuggestions before the `cursor`.
+  **/
+  take?: number
+  /**
+   * Skip the first `n` OfferSuggestions.
+  **/
+  skip?: number
+  distinct?: Enumerable<OfferSuggestionDistinctFieldEnum>
+}
+
+
+/**
+ * OfferSuggestion create
+ */
+export type OfferSuggestionCreateArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * The data needed to create a OfferSuggestion.
+  **/
+  data: OfferSuggestionCreateInput
+}
+
+
+/**
+ * OfferSuggestion update
+ */
+export type OfferSuggestionUpdateArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * The data needed to update a OfferSuggestion.
+  **/
+  data: OfferSuggestionUpdateInput
+  /**
+   * Choose, which OfferSuggestion to update.
+  **/
+  where: OfferSuggestionWhereUniqueInput
+}
+
+
+/**
+ * OfferSuggestion updateMany
+ */
+export type OfferSuggestionUpdateManyArgs = {
+  data: OfferSuggestionUpdateManyMutationInput
+  where?: OfferSuggestionWhereInput
+}
+
+
+/**
+ * OfferSuggestion upsert
+ */
+export type OfferSuggestionUpsertArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * The filter to search for the OfferSuggestion to update in case it exists.
+  **/
+  where: OfferSuggestionWhereUniqueInput
+  /**
+   * In case the OfferSuggestion found by the `where` argument doesn't exist, create a new OfferSuggestion with this data.
+  **/
+  create: OfferSuggestionCreateInput
+  /**
+   * In case the OfferSuggestion was found with the provided `where` argument, update it with this data.
+  **/
+  update: OfferSuggestionUpdateInput
+}
+
+
+/**
+ * OfferSuggestion delete
+ */
+export type OfferSuggestionDeleteArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+  /**
+   * Filter which OfferSuggestion to delete.
+  **/
+  where: OfferSuggestionWhereUniqueInput
+}
+
+
+/**
+ * OfferSuggestion deleteMany
+ */
+export type OfferSuggestionDeleteManyArgs = {
+  where?: OfferSuggestionWhereInput
+}
+
+
+/**
+ * OfferSuggestion without action
+ */
+export type OfferSuggestionArgs = {
+  /**
+   * Select specific fields to fetch from the OfferSuggestion
+  **/
+  select?: OfferSuggestionSelect | null
+}
+
+
+
+/**
  * Deep Input Types
  */
 
@@ -1564,6 +2068,7 @@ export type OfferWhereInput = {
   offerText?: StringFilter | string
   store?: StringFilter | string
   createdAt?: StringFilter | string
+  createdAtDb?: DateTimeFilter | Date | string
   author?: UserRelationFilter | UserWhereInput
   authorId?: IntFilter | number
 }
@@ -1580,6 +2085,7 @@ export type OfferOrderByInput = {
   offerText?: SortOrder
   store?: SortOrder
   createdAt?: SortOrder
+  createdAtDb?: SortOrder
   authorId?: SortOrder
 }
 
@@ -1596,6 +2102,7 @@ export type UserWhereInput = {
   email?: StringFilter | string
   role?: StringFilter | string
   password?: StringFilter | string
+  createdAtDb?: DateTimeFilter | Date | string
   Offer?: OfferListRelationFilter
 }
 
@@ -1605,11 +2112,33 @@ export type UserOrderByInput = {
   email?: SortOrder
   role?: SortOrder
   password?: SortOrder
+  createdAtDb?: SortOrder
 }
 
 export type UserWhereUniqueInput = {
   id?: number
   email?: string
+}
+
+export type OfferSuggestionWhereInput = {
+  AND?: OfferSuggestionWhereInput | Enumerable<OfferSuggestionWhereInput>
+  OR?: OfferSuggestionWhereInput | Enumerable<OfferSuggestionWhereInput>
+  NOT?: OfferSuggestionWhereInput | Enumerable<OfferSuggestionWhereInput>
+  id?: IntFilter | number
+  offerLink?: StringFilter | string
+  createdAtDb?: DateTimeFilter | Date | string
+  createdAt?: StringFilter | string
+}
+
+export type OfferSuggestionOrderByInput = {
+  id?: SortOrder
+  offerLink?: SortOrder
+  createdAtDb?: SortOrder
+  createdAt?: SortOrder
+}
+
+export type OfferSuggestionWhereUniqueInput = {
+  id?: number
 }
 
 export type OfferCreateInput = {
@@ -1623,6 +2152,7 @@ export type OfferCreateInput = {
   offerText: string
   store: string
   createdAt: string
+  createdAtDb?: Date | string
   author: UserCreateOneWithoutOfferInput
 }
 
@@ -1637,6 +2167,7 @@ export type OfferUpdateInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
   author?: UserUpdateOneRequiredWithoutOfferInput
 }
 
@@ -1651,6 +2182,7 @@ export type OfferUpdateManyMutationInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
 
 export type UserCreateInput = {
@@ -1658,6 +2190,7 @@ export type UserCreateInput = {
   email: string
   role?: string
   password: string
+  createdAtDb?: Date | string
   Offer?: OfferCreateManyWithoutAuthorInput
 }
 
@@ -1666,6 +2199,7 @@ export type UserUpdateInput = {
   email?: string | StringFieldUpdateOperationsInput
   role?: string | StringFieldUpdateOperationsInput
   password?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
   Offer?: OfferUpdateManyWithoutAuthorInput
 }
 
@@ -1674,6 +2208,25 @@ export type UserUpdateManyMutationInput = {
   email?: string | StringFieldUpdateOperationsInput
   role?: string | StringFieldUpdateOperationsInput
   password?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+}
+
+export type OfferSuggestionCreateInput = {
+  offerLink: string
+  createdAtDb?: Date | string
+  createdAt: string
+}
+
+export type OfferSuggestionUpdateInput = {
+  offerLink?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  createdAt?: string | StringFieldUpdateOperationsInput
+}
+
+export type OfferSuggestionUpdateManyMutationInput = {
+  offerLink?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  createdAt?: string | StringFieldUpdateOperationsInput
 }
 
 export type IntFilter = {
@@ -1706,6 +2259,17 @@ export type StringFilter = {
   not?: string | NestedStringFilter
 }
 
+export type DateTimeFilter = {
+  equals?: Date | string
+  in?: Enumerable<Date> | Enumerable<string>
+  notIn?: Enumerable<Date> | Enumerable<string>
+  lt?: Date | string
+  lte?: Date | string
+  gt?: Date | string
+  gte?: Date | string
+  not?: Date | string | NestedDateTimeFilter
+}
+
 export type UserRelationFilter = {
   is?: UserWhereInput
   isNot?: UserWhereInput
@@ -1736,6 +2300,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type UserUpdateOneRequiredWithoutOfferInput = {
@@ -1792,11 +2360,23 @@ export type NestedStringFilter = {
   not?: string | NestedStringFilter
 }
 
+export type NestedDateTimeFilter = {
+  equals?: Date | string
+  in?: Enumerable<Date> | Enumerable<string>
+  notIn?: Enumerable<Date> | Enumerable<string>
+  lt?: Date | string
+  lte?: Date | string
+  gt?: Date | string
+  gte?: Date | string
+  not?: Date | string | NestedDateTimeFilter
+}
+
 export type UserCreateWithoutOfferInput = {
   name: string
   email: string
   role?: string
   password: string
+  createdAtDb?: Date | string
 }
 
 export type UserUpdateWithoutOfferDataInput = {
@@ -1804,6 +2384,7 @@ export type UserUpdateWithoutOfferDataInput = {
   email?: string | StringFieldUpdateOperationsInput
   role?: string | StringFieldUpdateOperationsInput
   password?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
 
 export type UserUpsertWithoutOfferInput = {
@@ -1822,6 +2403,7 @@ export type OfferCreateWithoutAuthorInput = {
   offerText: string
   store: string
   createdAt: string
+  createdAtDb?: Date | string
 }
 
 export type OfferUpdateWithWhereUniqueWithoutAuthorInput = {
@@ -1849,6 +2431,7 @@ export type OfferScalarWhereInput = {
   offerText?: StringFilter | string
   store?: StringFilter | string
   createdAt?: StringFilter | string
+  createdAtDb?: DateTimeFilter | Date | string
   authorId?: IntFilter | number
 }
 
@@ -1869,6 +2452,7 @@ export type OfferUpdateWithoutAuthorDataInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
 
 export type OfferUpdateManyDataInput = {
@@ -1882,6 +2466,7 @@ export type OfferUpdateManyDataInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
 
 /**

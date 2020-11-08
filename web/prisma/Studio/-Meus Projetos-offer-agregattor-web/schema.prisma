@@ -22,6 +22,7 @@ model Offer {
   offerText String
   store String
   createdAt String
+  createdAtDb DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])
   authorId Int
 }
@@ -32,4 +33,12 @@ model User {
   email String @unique
   role String @default("USER")
   password String
+  createdAtDb DateTime @default(now())
+}
+
+model OfferSuggestion {
+  id Int @id @default(autoincrement())
+  offerLink String
+  createdAtDb DateTime @default(now())
+  createdAt String
 }

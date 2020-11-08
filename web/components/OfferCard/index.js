@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
 import cn from 'classnames';
 
-import styles from './OfferCard.module.css';
+import styles from './styles.module.css';
 
 export default function Card({
   active,
