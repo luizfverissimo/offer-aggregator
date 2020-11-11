@@ -52,6 +52,7 @@ export default function Home({ offers }) {
           Super Oferta do Dia - Encontre a melhor oferta e economize muito
         </title>
         <link rel='icon' href='/favicon.ico' />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
 
       {isOpen && (
