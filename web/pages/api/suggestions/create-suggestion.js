@@ -3,12 +3,12 @@ import moment from 'moment';
 
 const prisma = new PrismaClient();
 
-export default async function (req, res) {
-  if (req.method !== 'POST') {
-    res.statusCode = 405;
-    res.json({ error: `This endpoint do not receive ${req.method} request` });
-    return;
-  }
+export default async function createSuggestion (req, res) {
+  // if (req.method !== 'POST') {
+  //   res.statusCode = 405;
+  //   res.json({ error: `This endpoint do not receive ${req.method} request` });
+  //   return;
+  // }
   const { offerLink } = await req.body;
 
   const createdAt = moment().format('YYYY/MM/DD HH:mm');

@@ -22,13 +22,27 @@ export default function Home({ offers }) {
   const [offerLink, setOfferLink] = useState('');
 
   async function submitOfferLinkHandler() {
-    const res = await api.post('/create-suggestion', {
-      offerLink
+    const regExUrlValidation = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
+    //verifica se a url é válida
+    if (!regExUrlValidation.test(offerLink)) {
+      alert('Adicione uma URL válida!');
+      return;
+    }
+    let validatedUrl = offerLink;
+    //verifica se a url possui http:// ou https://, caso não, adiciona
+    if (!/(http(s?)):\/\//i.test(validatedUrl)) {
+      validatedUrl = `http://${offerLink}`;
+    }
+
+    const res = await api.post('/suggestions/create-suggestion', {
+      offerLink: validatedUrl
     });
 
-    setIsOpen(false)
-    setOfferLink('')
-    alert("Sua sugestão de promoção foi enviado com sucesso, agradecemos a sua colaboração!")
+    setIsOpen(false);
+    setOfferLink('');
+    alert(
+      'Sua sugestão de promoção foi enviado com sucesso, agradecemos a sua colaboração!'
+    );
   }
 
   return (

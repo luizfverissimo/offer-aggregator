@@ -15,9 +15,11 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "next": "10.0.0",
+    "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "sqlite": "^4.0.15"
+    "sqlite": "^4.0.15",
+    "swr": "^0.3.8"
   },
   "devDependencies": {
     "@prisma/cli": "^2.10.1",
