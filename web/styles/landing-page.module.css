@@ -1,7 +1,7 @@
 
 .header {
   position: fixed;
-  z-index: 10;
+  z-index: 11;
   top: 0;
   width: 100vw;
   background-color: var(--color-dark-blue);
@@ -48,11 +48,12 @@
   color: var(--color-green);
   font-size: 18px;
 
-  transition: color 0.2s;
+  transition: filter 0.2s;
 }
 
 .header .headerContent .enviarPromo:hover {
-  color: #fff;
+  filter: brightness(140%);
+  cursor: pointer;
 }
 
 .pageContent {

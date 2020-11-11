@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import { authenticated } from '../../../services/authenticated';
 
 const prisma = new PrismaClient();
 
-export default async function (req, res) {
+export default authenticated(async function (req, res) {
   if (req.method !== 'PUT') {
-    res.statusCode = 500;
+    res.statusCode = 405;
     res.json({ error: `This endpoint do not receive ${req.method} request` });
     return;
   }
@@ -28,4 +29,4 @@ export default async function (req, res) {
       offerUpdated.active ? 'ativada' : ' desativada'
     }.`
   });
-}
+})

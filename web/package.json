@@ -10,7 +10,9 @@
   "dependencies": {
     "@prisma/client": "^2.10.1",
     "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
     "classnames": "^2.2.6",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "next": "10.0.0",
     "react": "17.0.1",

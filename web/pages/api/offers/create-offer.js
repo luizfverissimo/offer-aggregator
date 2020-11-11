@@ -1,13 +1,14 @@
 import { PrismaClient } from '@prisma/client';
+import { authenticated } from '../../../services/authenticated';
 import moment from 'moment';
 
 const prisma = new PrismaClient();
 
-export default async function (req, res) {
+export default authenticated(async function (req, res) {
   if (req.method !== 'POST') {
-    res.statusCode = 500
-    res.json({ error: `This endpoint do not receive ${req.method} request`})
-    return
+    res.statusCode = 405;
+    res.json({ error: `This endpoint do not receive ${req.method} request` });
+    return;
   }
   const {
     name,
@@ -44,4 +45,4 @@ export default async function (req, res) {
 
   res.statusCode = 201;
   res.json({ message: 'Oferta criada com sucesso!' });
-}
+});

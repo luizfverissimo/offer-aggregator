@@ -2,11 +2,11 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export default async function (req, res) {
+const indexOffers = async (req, res) => {
   if (req.method !== 'GET') {
-    res.statusCode = 500
-    res.json({ error: `This endpoint do not receive ${req.method} request`})
-    return
+    res.statusCode = 405;
+    res.json({ error: `This endpoint do not receive ${req.method} request` });
+    return;
   }
   const offers = await prisma.offer.findMany({
     include: {
@@ -22,3 +22,5 @@ export default async function (req, res) {
   res.statusCode = 200;
   res.json(offers);
 }
+
+export default indexOffers

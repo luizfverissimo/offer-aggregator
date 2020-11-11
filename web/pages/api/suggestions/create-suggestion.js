@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export default async function (req, res) {
   if (req.method !== 'POST') {
-    res.statusCode = 500;
+    res.statusCode = 405;
     res.json({ error: `This endpoint do not receive ${req.method} request` });
     return;
   }
