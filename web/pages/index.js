@@ -9,7 +9,7 @@ import api from '../services/api';
 import styles from '../styles/landing-page.module.css';
 
 export async function getServerSideProps() {
-  const res = await api.get('/index-offers');
+  const res = await api.get('/offers/index-offers');
   const offers = await res.data;
 
   return {
