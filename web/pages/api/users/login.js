@@ -34,9 +34,18 @@ export default async function (req, res) {
 
   const information = { id: user.id, name: user.name };
 
-  const authToken = await jwt.sign(information, process.env.JWT_SECRET, {expiresIn: '1h'});
+  const authToken = await jwt.sign(information, process.env.JWT_SECRET, {
+    expiresIn: '1h'
+  });
 
   res.statusCode = 201;
-  res.json({ message: 'Acesso concedido!', authToken });
+  res.json({
+    message: 'Acesso concedido!',
+    authToken,
+    user: {
+      name: user.name,
+      email: user.email
+    }
+  });
   return;
 }

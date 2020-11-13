@@ -47,7 +47,6 @@
 }
 
 .content form button {
-  margin-top: 20px;
   background-color: var(--color-green);
   width: 150px;
   height: 42px;
@@ -68,6 +67,15 @@
 
 .content form button:hover {
   background-color: #28b8a0;
+}
+
+.content .errorContainer {
+  padding: 20px 0;
+  height: 16px;
+  color: var(--color-red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 700px) {
