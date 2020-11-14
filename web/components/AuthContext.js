@@ -44,7 +44,7 @@ const Auth = ({ children }) => {
       localStorage.setItem('userInfo', JSON.stringify(data));
       api.defaults.headers.Authorization = `${data.authToken}`;
       setAuthenticated(true);
-      router.push('/entrou');
+      router.push('/dashboard-offers');
     } catch (err) {
       setAuthenticated(false);
       alert('E-mail ou senha inválido');

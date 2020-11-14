@@ -13,7 +13,7 @@ const ProtectRoute = ({ children }) => {
 
   const protectedPath = () => {
     switch (router.pathname) {
-      case '/entrou':
+      case '/dashboard-offers':
         return authenticatedRoute(children);
 
       case '/':

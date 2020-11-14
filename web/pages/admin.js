@@ -32,7 +32,7 @@ export default function AdminLogin() {
   return (
     <>
       <Head>
-        <title>Super Oferta do Dia - ADMIN Dashboard</title>
+        <title>Super Oferta do Dia - Login</title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
