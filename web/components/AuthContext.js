@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 
+import Redirect from '../pages/redirect';
+import Loading from '../pages/loading';
+
 import api from '../services/api';
 
 const AuthContext = createContext();
@@ -8,6 +11,7 @@ const AuthContext = createContext();
 const Auth = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   //Sempre que a página é atualizada ele armazena novamente os dados do usuário logado.
@@ -17,8 +21,8 @@ const Auth = ({ children }) => {
       const userInfo = JSON.parse(userInfoFromLocalStorage);
       const token = userInfo.authToken;
 
-      if (!token){
-        setAuthenticated(false)
+      if (!token) {
+        setAuthenticated(false);
       }
 
       if (token) {
@@ -26,6 +30,8 @@ const Auth = ({ children }) => {
         setAuthenticated(true);
       }
     }
+
+    setLoading(false);
   }, []);
 
   //Realiza o requisição de login
@@ -53,9 +59,29 @@ const Auth = ({ children }) => {
     router.push('/admin');
   };
 
+  const authenticatedRoute = (children) => {
+    if (!authenticated) {
+      return <Redirect />;
+    }
+    if (authenticated) {
+      return <>{children}</>;
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <AuthContext.Provider
-      value={{ authenticated, user, handleLogin, handleLogout }}
+      value={{
+        authenticated,
+        loading,
+        user,
+        handleLogin,
+        handleLogout,
+        authenticatedRoute
+      }}
     >
       {children}
     </AuthContext.Provider>

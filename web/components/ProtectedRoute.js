@@ -7,23 +7,14 @@ import { route } from 'next/dist/next-server/server/router';
 
 const ProtectRoute = ({ children }) => {
   const router = useRouter();
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, authenticatedRoute } = useContext(AuthContext);
   console.log(authenticated)
 
-  function Authenticated() {
-    if (!authenticated) {
-      return null;
-    }
-    if (authenticated) {
-      return <>{children}</>;
-    }
-    
-  }
 
   const protectedPath = () => {
     switch (router.pathname) {
       case '/entrou':
-        return Authenticated();
+        return authenticatedRoute(children);
 
       case '/':
         return <>{children}</>;
@@ -33,6 +24,9 @@ const ProtectRoute = ({ children }) => {
 
       case '/redirect':
         return <>{children}</>;
+      
+        case '/loading':
+          return <>{children}</>;
     }
   };
 
