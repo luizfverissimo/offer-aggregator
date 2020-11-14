@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
 import styles from '../styles/admin.module.css';
 import api from '../services/api';
-import { Context, useAuth } from '../services/context/authContext';
 
-export default function adminLogin() {
+import { AuthContext } from '../components/AuthContext';
+
+export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { handleLogin } = useAuth();
+  const { handleLogin } = useContext(AuthContext);
 
   async function handleLoginSubmit(e) {
     e.preventDefault();
@@ -22,13 +23,9 @@ export default function adminLogin() {
 
     const emailLowercase = email.toLowerCase();
 
-    handleLogin(emailLowercase, password)
+    handleLogin(emailLowercase, password);
 
-    // const res = api.post('/users/login', {
-    //   email: emailLowercase,
-    //   password
-    // })
-
+    handleLogin(emailLowercase, password);
     return;
   }
 
