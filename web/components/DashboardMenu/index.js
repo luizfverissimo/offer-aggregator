@@ -1,12 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import Link from 'next/link';
 import { AuthContext } from '../AuthContext';
 
 import styles from './dashboard-menu.module.css';
+import { useRouter } from 'next/router';
 
 function Dashboard() {
   const { handleLogout } = useContext(AuthContext);
+  const router = useRouter()
 
   const { user } = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -19,7 +21,7 @@ function Dashboard() {
       </div>
       <div className={styles.menu}>
         <ul>
-          <li>
+          <li className={router.pathname === '/dashboard-suggestions' ? styles.selected : null}>
             <Link href='#'>
               <a>
                 <img src={require('../../public/suggestion.svg')} />
@@ -27,7 +29,7 @@ function Dashboard() {
               </a>
             </Link>
           </li>
-          <li>
+          <li className={router.pathname === '/dashboard-offers' ? styles.selected : null}>
             <Link href='#'>
               <a>
                 <img src={require('../../public/price-tag.svg')} />
@@ -35,7 +37,7 @@ function Dashboard() {
               </a>
             </Link>
           </li>
-          <li>
+          <li className={router.pathname === '/dashboard-users' ? styles.selected : null}>
             <Link href='#'>
               <a>
                 <img src={require('../../public/user.svg')} />
@@ -43,7 +45,7 @@ function Dashboard() {
               </a>
             </Link>
           </li>
-          <li>
+          <li className={router.pathname === '/dashboard-affiliates' ? styles.selected : null}>
             <Link href='#'>
               <a>
                 <img src={require('../../public/link.svg')} />

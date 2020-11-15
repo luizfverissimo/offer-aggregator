@@ -1,0 +1,61 @@
+.content {
+  width: 100vw;
+  height: auto;
+
+  color: var(--color-dark-blue);
+
+  display: flex;
+}
+
+.content .offersContent {
+  margin-left: max(260px, 21%);
+  margin-top: 40px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.content .offersContent h1 {
+  width: 100%;
+  text-align: left;
+}
+
+
+.content .offersContent table {
+  width: 90%;
+
+  overflow: hidden;
+  border-radius: 25px 25px 0 0;
+  border: none;
+  border-spacing: 0;
+
+  color: var(--color-dark-blue);
+  font-weight: bold;
+}
+
+.content .offersContent table .tableHeader {
+  background-color: var(--color-dark-blue);
+  color: #fff;
+  height: 42px;
+}
+
+.content .offersContent table .tableData {
+  height: 42px;
+  margin-top: 10px;
+}
+
+.content .offersContent table .tableData .active {
+  color: var(--color-green);
+}
+
+.content .offersContent table .tableData .inactive {
+  color: var(--color-red)
+}
+
+.content .offersContent table .tableData .actionContainer {
+  display: flex;
+  justify-content: center;
+}

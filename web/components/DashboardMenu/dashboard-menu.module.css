@@ -2,8 +2,12 @@
   background-color: var(--color-dark-blue);
   color: var(--color-green);
 
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 20%;
   min-width: 250px;
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -33,6 +37,10 @@
 .content .menu ul {
   list-style: none;
   padding: 40px;
+}
+
+.content .menu ul .selected {
+  filter: brightness(150%);
 }
 
 .content .menu ul li a {

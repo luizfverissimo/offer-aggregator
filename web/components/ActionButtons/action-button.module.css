@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.container button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-green);
+  border-radius: 8px;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+
+  transition: filter .2s;
+}
+
+.container button:hover {
+  filter: brightness(50%);
+}

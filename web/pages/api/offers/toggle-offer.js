@@ -10,6 +10,7 @@ export default authenticated(async function (req, res) {
     return;
   }
   const { id } = req.query;
+
   const offer = await prisma.offer.findOne({
     where: { id: Number(id) }
   });
@@ -29,4 +30,5 @@ export default authenticated(async function (req, res) {
       offerUpdated.active ? 'ativada' : ' desativada'
     }.`
   });
-})
+  return;
+});

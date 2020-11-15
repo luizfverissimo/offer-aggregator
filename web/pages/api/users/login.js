@@ -35,7 +35,7 @@ export default async function (req, res) {
   const information = { id: user.id, name: user.name };
 
   const authToken = await jwt.sign(information, process.env.JWT_SECRET, {
-    expiresIn: '1h'
+    expiresIn: '1day'
   });
 
   res.statusCode = 201;
