@@ -15,4 +15,5 @@ export default authenticated(async function (req, res) {
 
   res.statusCode = 200;
   res.json(offers);
+  return;
 });

@@ -2,33 +2,38 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import DashboardMenu from '../components/DashboardMenu';
+import Modal from '../components/Modal';
 
 import styles from '../styles/dashboard-offers.module.css';
 import ActionButtons from '../components/ActionButtons';
 import api from '../services/api';
 
 function DashboardOffers() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [deleteOfferId, setDeleteOfferId] = useState('');
   const [offers, setOffers] = useState([]);
 
   const fetchOffers = async () => {
     const res = await api.get('/offers/index-offers');
     const offersRes = await res.data;
-    setOffers(offersRes)
-    return ;
+    setOffers(offersRes);
+    return;
   };
 
   useEffect(() => {
-    fetchOffers()
-  }, [offers]);
+    fetchOffers();
+  }, []);
 
-  const handleActivity = async (id) => {
+  const handleActivityToggle = async (id) => {
     const res = await api.put(`/offers/toggle-offer?id=${id}`);
-    console.log(res);
-    const offerArr = offers
-    const offerIndex = offers.findIndex(offer => offer.id === id)
-    offerArr[offerIndex].active = !offerArr[offerIndex].active
+    fetchOffers();
+  };
 
-    setOffers(offerArr)
+  const handleDeleteOffer = async () => {
+    const res = await api.delete(`/offers/delete-offer?id=${deleteOfferId}`);
+    setDeleteOfferId('');
+    setIsOpen(false);
+    fetchOffers();
   };
 
   return (
@@ -39,26 +44,45 @@ function DashboardOffers() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
 
+      {isOpen && (
+        <Modal onClickCloseModal={() => setIsOpen(false)}>
+          <h2>Deseja excluir a oferta?</h2>
+          <div className={styles.modalButtonContainer}>
+            <button type='button' onClick={handleDeleteOffer}>
+              SIM
+            </button>
+            <button type='button' onClick={() => setIsOpen(false)}>
+              NÃO
+            </button>
+          </div>
+        </Modal>
+      )}
+
       <div className={styles.content}>
         <DashboardMenu />
         <div className={styles.offersContent}>
           <h1>Gerenciamento de Ofertas</h1>
+          <button type='button' className={styles.newOfferButton}>
+            NOVA OFERTA
+          </button>
 
           <table className={styles.table}>
             <thead>
               <tr className={styles.tableHeader}>
-                <th>id</th>
-                <th>Produto</th>
-                <th>Loja</th>
-                <th>Status</th>
-                <th>Ações</th>
+                <th style={{ width: 50 }}>id</th>
+                <th style={{ width: 450 }}>Produto</th>
+                <th style={{ width: 150 }}>Loja</th>
+                <th style={{ width: 150 }}>Status</th>
+                <th style={{ width: 150 }}>Ações</th>
               </tr>
             </thead>
             <tbody>
               {offers.map((offer) => {
                 return (
                   <tr key={offer.id} className={styles.tableData}>
-                    <td style={{ width: 50 }}>{offer.id}</td>
+                    <td style={{ width: 50, textAlign: 'center' }}>
+                      {offer.id}
+                    </td>
                     <td style={{ width: 450 }}>{offer.name}</td>
                     <td style={{ width: 150 }}>{offer.store}</td>
                     <td
@@ -67,10 +91,15 @@ function DashboardOffers() {
                     >
                       {offer.active ? 'Ativa' : 'Inativa'}
                     </td>
-                    <td style={{ width: 200}} className={styles.actionContainer}>
+                    <td className={styles.actionContainer}>
                       <ActionButtons
                         isActive={offer.active}
-                        onClickActivity={() => handleActivity(offer.id)}
+                        href={offer.urlOffer}
+                        onClickActivity={() => handleActivityToggle(offer.id)}
+                        onClickDelete={() => {
+                          setIsOpen(true);
+                          setDeleteOfferId(offer.id);
+                        }}
                       />
                     </td>
                   </tr>

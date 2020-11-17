@@ -52,16 +52,22 @@ export default function Home({ offers }) {
           Super Oferta do Dia - Encontre a melhor oferta e economize muito
         </title>
         <link rel='icon' href='/favicon.ico' />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
 
       {isOpen && (
-        <Modal
-          onClickCloseModal={() => setIsOpen(false)}
-          submitSuggestion={submitOfferLinkHandler}
-          value={offerLink}
-          onChange={(e) => setOfferLink(e.target.value)}
-        />
+        <Modal onClickCloseModal={() => setIsOpen(false)}>
+          <h2>Enviar Promoção</h2>
+          <input
+            type='text'
+            placeholder='Digite o link da promoção'
+            value={offerLink}
+            onChange={(e) => setOfferLink(e.target.value)}
+          />
+          <button type='button' onClick={submitOfferLinkHandler}>
+            Enviar
+          </button>
+        </Modal>
       )}
 
       <main>

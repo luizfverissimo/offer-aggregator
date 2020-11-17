@@ -22,7 +22,7 @@ function Dashboard() {
       <div className={styles.menu}>
         <ul>
           <li className={router.pathname === '/dashboard-suggestions' ? styles.selected : null}>
-            <Link href='#'>
+            <Link href='/dashboard-suggestions'>
               <a>
                 <img src={require('../../public/suggestion.svg')} />
                 <p>Sugestões de Ofertas</p>
@@ -30,7 +30,7 @@ function Dashboard() {
             </Link>
           </li>
           <li className={router.pathname === '/dashboard-offers' ? styles.selected : null}>
-            <Link href='#'>
+            <Link href='/dashboard-offers'>
               <a>
                 <img src={require('../../public/price-tag.svg')} />
                 <p>Gerenciar ofertas</p>

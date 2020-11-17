@@ -30,5 +30,6 @@ export default authenticated(async function (req, res) {
       offerUpdated.active ? 'ativada' : ' desativada'
     }.`
   });
+  res.end()
   return;
 });

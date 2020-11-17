@@ -4,7 +4,7 @@ import api from '../../services/api';
 
 import styles from './styles.module.css';
 
-function Modal({ onClickCloseModal, submitSuggestion, value, onChange }) {
+function Modal({ onClickCloseModal, children}) {
   
 
   return (
@@ -13,14 +13,7 @@ function Modal({ onClickCloseModal, submitSuggestion, value, onChange }) {
         <button className={styles.closeButton} onClick={onClickCloseModal}>
           X
         </button>
-        <h2>Enviar Promoção</h2>
-        <input
-          type='text'
-          placeholder='Digite o link da promoção'
-          value={value}
-          onChange={onChange}
-        />
-        <button type='button' onClick={submitSuggestion}>Enviar</button>
+        {children}
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ const indexOffers = async (req, res) => {
 
   res.statusCode = 200;
   res.json(offers);
+  return
 }
 
 export default indexOffers
