@@ -5,12 +5,13 @@ import moment from 'moment';
 const prisma = new PrismaClient();
 
 export default authenticated(async function (req, res) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'PUT') {
     res.statusCode = 405;
     res.json({ error: `This endpoint do not receive ${req.method} request` });
     return;
   }
   const {
+    id,
     name,
     urlImage,
     urlOffer,
@@ -20,15 +21,15 @@ export default authenticated(async function (req, res) {
     coupon,
     store,
     offerText,
-    author
   } = await req.body;
 
-  const active = true;
   const createdAt = moment().format('YYYY/MM/DD HH:mm');
 
-  await prisma.offer.create({
+  await prisma.offer.update({
+    where: {
+      id: Number(id)
+    },
     data: {
-      active,
       name,
       urlImage,
       urlOffer,
@@ -39,12 +40,9 @@ export default authenticated(async function (req, res) {
       store,
       createdAt,
       offerText,
-      author: {
-        connect: { id: author }
-      }
     }
-  });
+  })
 
   res.statusCode = 201;
-  res.json({ message: 'Oferta criada com sucesso!' });
+  res.json({ message: 'Oferta atualizada com sucesso!' });
 });

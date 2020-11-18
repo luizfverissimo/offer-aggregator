@@ -102,6 +102,7 @@ export default function Home({ offers }) {
                 urlOffer={offer.urlOffer}
                 offerPrice={offer.offerPrice}
                 normalPrice={offer.normalPrice}
+                coupon={offer.coupon}
                 offerText={offer.offerText}
                 store={offer.store}
                 author={offer.author.name}

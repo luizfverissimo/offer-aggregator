@@ -421,6 +421,16 @@ export declare class PrismaClient<
     * ```
     */
   get offerSuggestion(): OfferSuggestionDelegate;
+
+  /**
+   * `prisma.affiliateLink`: Exposes CRUD operations for the **AffiliateLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AffiliateLinks
+    * const affiliateLinks = await prisma.affiliateLink.findMany()
+    * ```
+    */
+  get affiliateLink(): AffiliateLinkDelegate;
 }
 
 
@@ -443,6 +453,7 @@ export declare const OfferDistinctFieldEnum: {
   normalPrice: 'normalPrice',
   offerText: 'offerText',
   store: 'store',
+  coupon: 'coupon',
   createdAt: 'createdAt',
   createdAtDb: 'createdAtDb',
   authorId: 'authorId'
@@ -473,6 +484,15 @@ export declare const OfferSuggestionDistinctFieldEnum: {
 export declare type OfferSuggestionDistinctFieldEnum = (typeof OfferSuggestionDistinctFieldEnum)[keyof typeof OfferSuggestionDistinctFieldEnum]
 
 
+export declare const AffiliateLinkDistinctFieldEnum: {
+  id: 'id',
+  store: 'store',
+  affiliateLink: 'affiliateLink'
+};
+
+export declare type AffiliateLinkDistinctFieldEnum = (typeof AffiliateLinkDistinctFieldEnum)[keyof typeof AffiliateLinkDistinctFieldEnum]
+
+
 export declare const SortOrder: {
   asc: 'asc',
   desc: 'desc'
@@ -497,6 +517,7 @@ export type Offer = {
   normalPrice: number
   offerText: string
   store: string
+  coupon: string
   createdAt: string
   createdAtDb: Date
   authorId: number
@@ -603,6 +624,7 @@ export type OfferSelect = {
   normalPrice?: boolean
   offerText?: boolean
   store?: boolean
+  coupon?: boolean
   createdAt?: boolean
   createdAtDb?: boolean
   author?: boolean | UserArgs
@@ -2049,6 +2071,482 @@ export type OfferSuggestionArgs = {
 
 
 /**
+ * Model AffiliateLink
+ */
+
+export type AffiliateLink = {
+  id: number
+  store: string
+  affiliateLink: string
+}
+
+
+export type AggregateAffiliateLink = {
+  count: number
+  avg: AffiliateLinkAvgAggregateOutputType | null
+  sum: AffiliateLinkSumAggregateOutputType | null
+  min: AffiliateLinkMinAggregateOutputType | null
+  max: AffiliateLinkMaxAggregateOutputType | null
+}
+
+export type AffiliateLinkAvgAggregateOutputType = {
+  id: number
+}
+
+export type AffiliateLinkSumAggregateOutputType = {
+  id: number
+}
+
+export type AffiliateLinkMinAggregateOutputType = {
+  id: number
+}
+
+export type AffiliateLinkMaxAggregateOutputType = {
+  id: number
+}
+
+
+export type AffiliateLinkAvgAggregateInputType = {
+  id?: true
+}
+
+export type AffiliateLinkSumAggregateInputType = {
+  id?: true
+}
+
+export type AffiliateLinkMinAggregateInputType = {
+  id?: true
+}
+
+export type AffiliateLinkMaxAggregateInputType = {
+  id?: true
+}
+
+export type AggregateAffiliateLinkArgs = {
+  where?: AffiliateLinkWhereInput
+  orderBy?: Enumerable<AffiliateLinkOrderByInput> | AffiliateLinkOrderByInput
+  cursor?: AffiliateLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Enumerable<AffiliateLinkDistinctFieldEnum>
+  count?: true
+  avg?: AffiliateLinkAvgAggregateInputType
+  sum?: AffiliateLinkSumAggregateInputType
+  min?: AffiliateLinkMinAggregateInputType
+  max?: AffiliateLinkMaxAggregateInputType
+}
+
+export type GetAffiliateLinkAggregateType<T extends AggregateAffiliateLinkArgs> = {
+  [P in keyof T]: P extends 'count' ? number : GetAffiliateLinkAggregateScalarType<T[P]>
+}
+
+export type GetAffiliateLinkAggregateScalarType<T extends any> = {
+  [P in keyof T]: P extends keyof AffiliateLinkAvgAggregateOutputType ? AffiliateLinkAvgAggregateOutputType[P] : never
+}
+    
+    
+
+export type AffiliateLinkSelect = {
+  id?: boolean
+  store?: boolean
+  affiliateLink?: boolean
+}
+
+export type AffiliateLinkGetPayload<
+  S extends boolean | null | undefined | AffiliateLinkArgs,
+  U = keyof S
+> = S extends true
+  ? AffiliateLink
+  : S extends undefined
+  ? never
+  : S extends AffiliateLinkArgs | FindManyAffiliateLinkArgs
+  ? 'include' extends U
+    ? AffiliateLink 
+  : 'select' extends U
+    ? {
+      [P in TrueKeys<S['select']>]:P extends keyof AffiliateLink ? AffiliateLink[P]
+: 
+ never
+    }
+  : AffiliateLink
+: AffiliateLink
+
+
+export interface AffiliateLinkDelegate {
+  /**
+   * Find zero or one AffiliateLink that matches the filter.
+   * @param {FindOneAffiliateLinkArgs} args - Arguments to find a AffiliateLink
+   * @example
+   * // Get one AffiliateLink
+   * const affiliateLink = await prisma.affiliateLink.findOne({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findOne<T extends FindOneAffiliateLinkArgs>(
+    args: Subset<T, FindOneAffiliateLinkArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink | null>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T> | null>>
+  /**
+   * Find the first AffiliateLink that matches the filter.
+   * @param {FindFirstAffiliateLinkArgs} args - Arguments to find a AffiliateLink
+   * @example
+   * // Get one AffiliateLink
+   * const affiliateLink = await prisma.affiliateLink.findFirst({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findFirst<T extends FindFirstAffiliateLinkArgs>(
+    args?: Subset<T, FindFirstAffiliateLinkArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink | null>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T> | null>>
+  /**
+   * Find zero or more AffiliateLinks that matches the filter.
+   * @param {FindManyAffiliateLinkArgs=} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all AffiliateLinks
+   * const affiliateLinks = await prisma.affiliateLink.findMany()
+   * 
+   * // Get first 10 AffiliateLinks
+   * const affiliateLinks = await prisma.affiliateLink.findMany({ take: 10 })
+   * 
+   * // Only select the `id`
+   * const affiliateLinkWithIdOnly = await prisma.affiliateLink.findMany({ select: { id: true } })
+   * 
+  **/
+  findMany<T extends FindManyAffiliateLinkArgs>(
+    args?: Subset<T, FindManyAffiliateLinkArgs>
+  ): CheckSelect<T, Promise<Array<AffiliateLink>>, Promise<Array<AffiliateLinkGetPayload<T>>>>
+  /**
+   * Create a AffiliateLink.
+   * @param {AffiliateLinkCreateArgs} args - Arguments to create a AffiliateLink.
+   * @example
+   * // Create one AffiliateLink
+   * const AffiliateLink = await prisma.affiliateLink.create({
+   *   data: {
+   *     // ... data to create a AffiliateLink
+   *   }
+   * })
+   * 
+  **/
+  create<T extends AffiliateLinkCreateArgs>(
+    args: Subset<T, AffiliateLinkCreateArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T>>>
+  /**
+   * Delete a AffiliateLink.
+   * @param {AffiliateLinkDeleteArgs} args - Arguments to delete one AffiliateLink.
+   * @example
+   * // Delete one AffiliateLink
+   * const AffiliateLink = await prisma.affiliateLink.delete({
+   *   where: {
+   *     // ... filter to delete one AffiliateLink
+   *   }
+   * })
+   * 
+  **/
+  delete<T extends AffiliateLinkDeleteArgs>(
+    args: Subset<T, AffiliateLinkDeleteArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T>>>
+  /**
+   * Update one AffiliateLink.
+   * @param {AffiliateLinkUpdateArgs} args - Arguments to update one AffiliateLink.
+   * @example
+   * // Update one AffiliateLink
+   * const affiliateLink = await prisma.affiliateLink.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  update<T extends AffiliateLinkUpdateArgs>(
+    args: Subset<T, AffiliateLinkUpdateArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T>>>
+  /**
+   * Delete zero or more AffiliateLinks.
+   * @param {AffiliateLinkDeleteManyArgs} args - Arguments to filter AffiliateLinks to delete.
+   * @example
+   * // Delete a few AffiliateLinks
+   * const { count } = await prisma.affiliateLink.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   * 
+  **/
+  deleteMany<T extends AffiliateLinkDeleteManyArgs>(
+    args: Subset<T, AffiliateLinkDeleteManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Update zero or more AffiliateLinks.
+   * @param {AffiliateLinkUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many AffiliateLinks
+   * const affiliateLink = await prisma.affiliateLink.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  updateMany<T extends AffiliateLinkUpdateManyArgs>(
+    args: Subset<T, AffiliateLinkUpdateManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Create or update one AffiliateLink.
+   * @param {AffiliateLinkUpsertArgs} args - Arguments to update or create a AffiliateLink.
+   * @example
+   * // Update or create a AffiliateLink
+   * const affiliateLink = await prisma.affiliateLink.upsert({
+   *   create: {
+   *     // ... data to create a AffiliateLink
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the AffiliateLink we want to update
+   *   }
+   * })
+  **/
+  upsert<T extends AffiliateLinkUpsertArgs>(
+    args: Subset<T, AffiliateLinkUpsertArgs>
+  ): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T>>>
+  /**
+   * Count
+   */
+  count(args?: Omit<FindManyAffiliateLinkArgs, 'select' | 'include'>): Promise<number>
+
+  /**
+   * Aggregate
+   */
+  aggregate<T extends AggregateAffiliateLinkArgs>(args: Subset<T, AggregateAffiliateLinkArgs>): Promise<GetAffiliateLinkAggregateType<T>>
+}
+
+/**
+ * The delegate class that acts as a "Promise-like" for AffiliateLink.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in 
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export declare class Prisma__AffiliateLinkClient<T> implements Promise<T> {
+  private readonly _dmmf;
+  private readonly _fetcher;
+  private readonly _queryType;
+  private readonly _rootField;
+  private readonly _clientMethod;
+  private readonly _args;
+  private readonly _dataPath;
+  private readonly _errorFormat;
+  private readonly _measurePerformance?;
+  private _isList;
+  private _callsite;
+  private _requestPromise?;
+  constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+  readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+
+  private get _document();
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(onrejected?: ((reason: any) => TResult | Promise<TResult>) | undefined | null): Promise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+}
+
+// Custom InputTypes
+
+/**
+ * AffiliateLink findOne
+ */
+export type FindOneAffiliateLinkArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * Filter, which AffiliateLink to fetch.
+  **/
+  where: AffiliateLinkWhereUniqueInput
+}
+
+
+/**
+ * AffiliateLink findFirst
+ */
+export type FindFirstAffiliateLinkArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * Filter, which AffiliateLink to fetch.
+  **/
+  where?: AffiliateLinkWhereInput
+  orderBy?: Enumerable<AffiliateLinkOrderByInput> | AffiliateLinkOrderByInput
+  cursor?: AffiliateLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Enumerable<AffiliateLinkDistinctFieldEnum>
+}
+
+
+/**
+ * AffiliateLink findMany
+ */
+export type FindManyAffiliateLinkArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * Filter, which AffiliateLinks to fetch.
+  **/
+  where?: AffiliateLinkWhereInput
+  /**
+   * Determine the order of the AffiliateLinks to fetch.
+  **/
+  orderBy?: Enumerable<AffiliateLinkOrderByInput> | AffiliateLinkOrderByInput
+  /**
+   * Sets the position for listing AffiliateLinks.
+  **/
+  cursor?: AffiliateLinkWhereUniqueInput
+  /**
+   * The number of AffiliateLinks to fetch. If negative number, it will take AffiliateLinks before the `cursor`.
+  **/
+  take?: number
+  /**
+   * Skip the first `n` AffiliateLinks.
+  **/
+  skip?: number
+  distinct?: Enumerable<AffiliateLinkDistinctFieldEnum>
+}
+
+
+/**
+ * AffiliateLink create
+ */
+export type AffiliateLinkCreateArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * The data needed to create a AffiliateLink.
+  **/
+  data: AffiliateLinkCreateInput
+}
+
+
+/**
+ * AffiliateLink update
+ */
+export type AffiliateLinkUpdateArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * The data needed to update a AffiliateLink.
+  **/
+  data: AffiliateLinkUpdateInput
+  /**
+   * Choose, which AffiliateLink to update.
+  **/
+  where: AffiliateLinkWhereUniqueInput
+}
+
+
+/**
+ * AffiliateLink updateMany
+ */
+export type AffiliateLinkUpdateManyArgs = {
+  data: AffiliateLinkUpdateManyMutationInput
+  where?: AffiliateLinkWhereInput
+}
+
+
+/**
+ * AffiliateLink upsert
+ */
+export type AffiliateLinkUpsertArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * The filter to search for the AffiliateLink to update in case it exists.
+  **/
+  where: AffiliateLinkWhereUniqueInput
+  /**
+   * In case the AffiliateLink found by the `where` argument doesn't exist, create a new AffiliateLink with this data.
+  **/
+  create: AffiliateLinkCreateInput
+  /**
+   * In case the AffiliateLink was found with the provided `where` argument, update it with this data.
+  **/
+  update: AffiliateLinkUpdateInput
+}
+
+
+/**
+ * AffiliateLink delete
+ */
+export type AffiliateLinkDeleteArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+  /**
+   * Filter which AffiliateLink to delete.
+  **/
+  where: AffiliateLinkWhereUniqueInput
+}
+
+
+/**
+ * AffiliateLink deleteMany
+ */
+export type AffiliateLinkDeleteManyArgs = {
+  where?: AffiliateLinkWhereInput
+}
+
+
+/**
+ * AffiliateLink without action
+ */
+export type AffiliateLinkArgs = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+  **/
+  select?: AffiliateLinkSelect | null
+}
+
+
+
+/**
  * Deep Input Types
  */
 
@@ -2067,6 +2565,7 @@ export type OfferWhereInput = {
   normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
+  coupon?: StringFilter | string
   createdAt?: StringFilter | string
   createdAtDb?: DateTimeFilter | Date | string
   author?: UserRelationFilter | UserWhereInput
@@ -2084,6 +2583,7 @@ export type OfferOrderByInput = {
   normalPrice?: SortOrder
   offerText?: SortOrder
   store?: SortOrder
+  coupon?: SortOrder
   createdAt?: SortOrder
   createdAtDb?: SortOrder
   authorId?: SortOrder
@@ -2141,6 +2641,25 @@ export type OfferSuggestionWhereUniqueInput = {
   id?: number
 }
 
+export type AffiliateLinkWhereInput = {
+  AND?: AffiliateLinkWhereInput | Enumerable<AffiliateLinkWhereInput>
+  OR?: AffiliateLinkWhereInput | Enumerable<AffiliateLinkWhereInput>
+  NOT?: AffiliateLinkWhereInput | Enumerable<AffiliateLinkWhereInput>
+  id?: IntFilter | number
+  store?: StringFilter | string
+  affiliateLink?: StringFilter | string
+}
+
+export type AffiliateLinkOrderByInput = {
+  id?: SortOrder
+  store?: SortOrder
+  affiliateLink?: SortOrder
+}
+
+export type AffiliateLinkWhereUniqueInput = {
+  id?: number
+}
+
 export type OfferCreateInput = {
   active: boolean
   name: string
@@ -2151,6 +2670,7 @@ export type OfferCreateInput = {
   normalPrice: number
   offerText: string
   store: string
+  coupon?: string
   createdAt: string
   createdAtDb?: Date | string
   author: UserCreateOneWithoutOfferInput
@@ -2166,6 +2686,7 @@ export type OfferUpdateInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
   author?: UserUpdateOneRequiredWithoutOfferInput
@@ -2181,6 +2702,7 @@ export type OfferUpdateManyMutationInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
@@ -2227,6 +2749,21 @@ export type OfferSuggestionUpdateManyMutationInput = {
   offerLink?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
+}
+
+export type AffiliateLinkCreateInput = {
+  store: string
+  affiliateLink: string
+}
+
+export type AffiliateLinkUpdateInput = {
+  store?: string | StringFieldUpdateOperationsInput
+  affiliateLink?: string | StringFieldUpdateOperationsInput
+}
+
+export type AffiliateLinkUpdateManyMutationInput = {
+  store?: string | StringFieldUpdateOperationsInput
+  affiliateLink?: string | StringFieldUpdateOperationsInput
 }
 
 export type IntFilter = {
@@ -2402,6 +2939,7 @@ export type OfferCreateWithoutAuthorInput = {
   normalPrice: number
   offerText: string
   store: string
+  coupon?: string
   createdAt: string
   createdAtDb?: Date | string
 }
@@ -2430,6 +2968,7 @@ export type OfferScalarWhereInput = {
   normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
+  coupon?: StringFilter | string
   createdAt?: StringFilter | string
   createdAtDb?: DateTimeFilter | Date | string
   authorId?: IntFilter | number
@@ -2451,6 +2990,7 @@ export type OfferUpdateWithoutAuthorDataInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
@@ -2465,6 +3005,7 @@ export type OfferUpdateManyDataInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }

@@ -4,16 +4,19 @@ import React, { useEffect, useState } from 'react';
 
 import Dashboard from '../components/DashboardMenu';
 import api from '../services/api';
+import { priceWithDot } from '../services/price_with_dot';
 
 import styles from '../styles/create-offer.module.scss';
 
 function CreateOffer() {
+  const [offerId, setOfferId] = useState();
   const [name, setName] = useState('');
   const [urlImage, setUrlImage] = useState('');
   const [urlOffer, setUrlOffer] = useState('');
   const [description, setDescription] = useState('');
   const [offerPrice, setOfferPrice] = useState(0);
   const [normalPrice, setNormalPrice] = useState(0);
+  const [coupon, setCoupon] = useState('SEM');
   const [offerText, setOfferText] = useState('');
   const [store, setStore] = useState('');
   const [author, setAuthor] = useState();
@@ -30,8 +33,9 @@ function CreateOffer() {
     setUrlImage(offer.urlImage);
     setUrlOffer(offer.urlOffer);
     setDescription(offer.description);
-    setOfferPrice(offer.offerPrice);
-    setNormalPrice(offer.normalPrice);
+    setOfferPrice(priceWithDot(offer.offerPrice));
+    setNormalPrice(priceWithDot(offer.normalPrice));
+    setCoupon(offer.coupon)
     setOfferText(offer.offerText);
     setStore(offer.store);
     return;
@@ -43,10 +47,11 @@ function CreateOffer() {
     const { id } = router.query;
     if (id) {
       fetchOffer(id);
+      setOfferId(id);
     }
   }, []);
 
-  const handleCreateOffer = () => {
+  const handleCreateOffer = async () => {
     if (
       name.length === 0 ||
       urlImage.length === 0 ||
@@ -54,6 +59,7 @@ function CreateOffer() {
       description.length === 0 ||
       offerPrice === 0 ||
       normalPrice === 0 ||
+      coupon.length === 0 ||
       offerText.length === 0 ||
       store.length === 0
     ) {
@@ -69,13 +75,33 @@ function CreateOffer() {
       return parseInt(numberWithOutComma);
     };
 
-    const res = api.post('/offers/create-offer', {
+    if (offerId) {
+      const res = await api.put('/offers/update-offer', {
+        id: offerId,
+        name,
+        urlImage,
+        urlOffer,
+        description,
+        offerPrice: removeComma(offerPrice),
+        normalPrice: removeComma(normalPrice),
+        coupon,
+        offerText,
+        store: storeUppercase
+      });
+
+      alert('Oferta atualizada com sucesso!');
+      router.back();
+      return;
+    }
+
+    const res = await api.post('/offers/create-offer', {
       name,
       urlImage,
       urlOffer,
       description,
       offerPrice: removeComma(offerPrice),
       normalPrice: removeComma(normalPrice),
+      coupon,
       offerText,
       store: storeUppercase,
       author
@@ -130,13 +156,25 @@ function CreateOffer() {
                 value={urlOffer}
                 onChange={(e) => setUrlOffer(e.target.value)}
               />
+            </div>
 
-              <label>Descrição da oferta</label>
-              <textarea
-                type='text'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
+            <div className={styles.twoColumn}>
+              <div className={styles.container}>
+                <label>Descrição da oferta</label>
+                <textarea
+                  type='text'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <div className={styles.container}>
+                <label>CUPOM</label>
+                <input
+                  type='text'
+                  value={coupon}
+                  onChange={(e) => setCoupon(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className={styles.twoColumn}>

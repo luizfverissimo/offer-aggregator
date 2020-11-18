@@ -146,6 +146,7 @@
   font-weight: bold;
   font-family: Roboto, sans-serif;
   color: #fff;
+  cursor: pointer;
 
   display: flex;
   align-items: center;

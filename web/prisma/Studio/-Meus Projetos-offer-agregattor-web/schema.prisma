@@ -21,6 +21,7 @@ model Offer {
   normalPrice Int
   offerText String
   store String
+  coupon String @default("SEM")
   createdAt String
   createdAtDb DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])
@@ -41,4 +42,10 @@ model OfferSuggestion {
   offerLink String
   createdAtDb DateTime @default(now())
   createdAt String
+}
+
+model AffiliateLink {
+  id Int @id @default(autoincrement())
+  store String
+  affiliateLink String
 }
