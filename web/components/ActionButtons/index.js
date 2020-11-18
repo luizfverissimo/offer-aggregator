@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './action-button.module.css';
 
-function ActionButtons({ isActive, suggestion, onClickActivity, onClickDelete, href }) {
+function ActionButtons({ isActive, suggestion, onClickActivity, onClickDelete, onClickEdit, href }) {
   return (
     <div className={styles.container}>
       {!suggestion && (
@@ -16,7 +16,7 @@ function ActionButtons({ isActive, suggestion, onClickActivity, onClickDelete, h
               }
             />
           </button>
-          <button type='button'>
+          <button type='button' onClick={onClickEdit}>
             <img src={require('../../public/edit.svg')} />
           </button>
         </>

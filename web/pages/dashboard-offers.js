@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import DashboardMenu from '../components/DashboardMenu';
 import Modal from '../components/Modal';
@@ -8,10 +9,13 @@ import styles from '../styles/dashboard-offers.module.css';
 import ActionButtons from '../components/ActionButtons';
 import api from '../services/api';
 
+
 function DashboardOffers() {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteOfferId, setDeleteOfferId] = useState('');
   const [offers, setOffers] = useState([]);
+
+  const router = useRouter()
 
   const fetchOffers = async () => {
     const res = await api.get('/offers/index-offers');
@@ -62,7 +66,7 @@ function DashboardOffers() {
         <DashboardMenu />
         <div className={styles.offersContent}>
           <h1>Gerenciamento de Ofertas</h1>
-          <button type='button' className={styles.newOfferButton}>
+          <button type='button' className={styles.newOfferButton} onClick={() => router.push('/create-offer')}>
             NOVA OFERTA
           </button>
 
@@ -100,6 +104,13 @@ function DashboardOffers() {
                           setIsOpen(true);
                           setDeleteOfferId(offer.id);
                         }}
+                        onClickEdit={() => router.push({
+                          pathname: "/create-offer",
+                          query: {
+                            id: offer.id
+                          }
+                        })}
+                        
                       />
                     </td>
                   </tr>

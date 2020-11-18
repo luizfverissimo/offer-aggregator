@@ -79,12 +79,9 @@
   margin-top: 10px;
 }
 
-.content .offersContent table .tableData .active {
-  color: var(--color-green);
-}
-
-.content .offersContent table .tableData .inactive {
-  color: var(--color-red)
+.content .offersContent table .tableData td {
+  padding: 10px 0;
+  
 }
 
 .content .offersContent table .tableData .actionContainer {

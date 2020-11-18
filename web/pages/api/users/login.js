@@ -43,6 +43,7 @@ export default async function (req, res) {
     message: 'Acesso concedido!',
     authToken,
     user: {
+      id: user.id,
       name: user.name,
       email: user.email
     }
