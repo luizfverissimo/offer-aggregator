@@ -9,13 +9,14 @@ const indexOffers = async (req, res) => {
     return;
   }
 
-  const { cursor } = req.query
-  const paginationRowsNumber = 5
+  const { cursor, rows } = req.query
+  console.log('cursor', cursor)
+  console.log('rows', rows)
 
 
   if(!cursor) {
     const offers = await prisma.offer.findMany({
-      take: paginationRowsNumber,
+      take: Number(rows),
       include: {
         author: {
           select: {
@@ -33,7 +34,7 @@ const indexOffers = async (req, res) => {
 
   if (cursor) {
     const offers = await prisma.offer.findMany({
-      take: paginationRowsNumber,
+      take: Number(rows),
       skip: 1,
       cursor: {
         id: Number(cursor)

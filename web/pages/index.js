@@ -1,7 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import NProgress from 'nprogress';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import 'nprogress/nprogress.css';
 
 import Modal from '../components/Modal';
 import Card from '../components/OfferCard';
@@ -9,49 +13,27 @@ import Card from '../components/OfferCard';
 import api from '../services/api';
 import styles from '../styles/landing-page.module.css';
 
-export async function getServerSideProps({ query }) {
-
-  if (query.search) {
-    if (query.search === '') {
-      const res = await api.get('/offers/index-offers');
-      const offers = await res.data;
-      return {
-        props: { offers }
-      };
-    }
-
-    if (query.search && query.search !== '') {
-      const res = await api.get(`/offers/search-offers?search=${query.search}`);
-      offers = await res.data;
-      return {
-        props: { offers }
-      };
-    }
-  }
-
-  if (query.cursor) {
-    const res = await api.get(`/offers/index-offers?cursor=${query.cursor}`);
-    const offers = await res.data;
-    return {
-      props: { offers }
-    };
-  }
-
-  const res = await api.get('/offers/index-offers');
-  const offers = await res.data;
-
-  return {
-    props: { offers }
-  };
-}
-
-export default function Home({ offers }) {
+export default function Home() {
+  const [offers, setOffers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [offerLink, setOfferLink] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [timer, setTimer] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
 
   const router = useRouter();
+
+  const fetchOffers = async () => {
+    NProgress.start();
+    const res = await api.get('/offers/index-offers?rows=10');
+    const offersRes = await res.data;
+    setOffers(offersRes);
+    NProgress.done();
+  };
+
+  useEffect(() => {
+    fetchOffers();
+  }, []);
 
   async function submitOfferLinkHandler() {
     const regExUrlValidation = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
@@ -77,23 +59,27 @@ export default function Home({ offers }) {
     );
   }
 
-  const fetchSearchOffers = (query) => {
+  const fetchSearchOffers = async (query) => {
+    NProgress.start();
     if (query === '') {
-      router.push('/');
+      const res = await api.get('/offers/index-offers');
+      const offersRes = await res.data;
+      setOffers(offersRes);
+      NProgress.done();
+      return;
     }
 
-    router.push({
-      pathname: '/',
-      query: {
-        search: query
-      }
-    });
+    const res = await api.get(`/offers/search-offers?search=${query}`);
+    const offersRes = await res.data;
+    setOffers(offersRes);
+    NProgress.done();
+    return;
   };
 
   const handleSearchEnter = (e) => {
     if (e.keyCode === 13) {
       clearTimeout(timer);
-      fetchSearchOffers();
+      fetchSearchOffers(searchQuery);
       return;
     }
     return;
@@ -113,12 +99,23 @@ export default function Home({ offers }) {
   };
 
   const handleNextOffers = async () => {
-    router.push({
-      pathname: '/',
-      query: {
-        cursor: offers[4].id
-      }
-    });
+    NProgress.start();
+    const index = offers.length - 1;
+    const rows = 10
+    const res = await api.get(
+      `/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
+    );
+    const offersRes = await res.data;
+    const increaseOffers = offers.concat(offersRes);
+    if (offersRes.length === 0) {
+      setHasMore(false);
+      NProgress.done();
+      return;
+    }
+
+    setOffers(increaseOffers);
+    NProgress.done();
+    return;
   };
 
   return (
@@ -173,30 +170,47 @@ export default function Home({ offers }) {
           </div>
         </div>
 
-        <section className={styles.pageContent}>
-          {offers.map((offer, index) => {
-            return (
-              <Card
-                key={index}
-                active={offer.active}
-                name={offer.name}
-                urlImage={offer.urlImage}
-                urlOffer={offer.urlOffer}
-                offerPrice={offer.offerPrice}
-                normalPrice={offer.normalPrice}
-                coupon={offer.coupon}
-                offerText={offer.offerText}
-                store={offer.store}
-                author={offer.author.name}
-                createdAt={offer.createdAt}
-              />
-            );
-          })}
-        </section>
+        <InfiniteScroll
+          dataLength={offers.length}
+          next={handleNextOffers}
+          hasMore={hasMore}
+          loader={
+            <h3
+              style={{ textAlign: 'center', color: 'var(--color-dark-blue)' }}
+            >
+              Carregando mais ofertas especiais...
+            </h3>
+          }
+          endMessage={
+            <h3
+              style={{ textAlign: 'center', color: 'var(--color-dark-blue)' }}
+            >
+              😭 Você já viu todas as ofertas
+            </h3>
+          }
+        >
+          <section className={styles.pageContent}>
+            {offers.map((offer, index) => {
+              return (
+                <Card
+                  key={index}
+                  active={offer.active}
+                  name={offer.name}
+                  urlImage={offer.urlImage}
+                  urlOffer={offer.urlOffer}
+                  offerPrice={offer.offerPrice}
+                  normalPrice={offer.normalPrice}
+                  coupon={offer.coupon}
+                  offerText={offer.offerText}
+                  store={offer.store}
+                  author={offer.author.name}
+                  createdAt={offer.createdAt}
+                />
+              );
+            })}
+          </section>
+        </InfiniteScroll>
       </main>
-      <footer>
-        <button onClick={handleNextOffers}>Próximo</button>
-      </footer>
     </>
   );
 }

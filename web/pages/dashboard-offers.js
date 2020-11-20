@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import NProgress from 'nprogress';
+
+import 'nprogress/nprogress.css';
 
 import DashboardMenu from '../components/DashboardMenu';
 import Modal from '../components/Modal';
@@ -8,19 +11,23 @@ import Modal from '../components/Modal';
 import styles from '../styles/dashboard-offers.module.css';
 import ActionButtons from '../components/ActionButtons';
 import api from '../services/api';
-
+import Pagination from '../components/Pagination';
 
 function DashboardOffers() {
+  const [initialOffersId, setInitialOffersId] = useState(0)
   const [isOpen, setIsOpen] = useState(false);
   const [deleteOfferId, setDeleteOfferId] = useState('');
   const [offers, setOffers] = useState([]);
+  const [showNextButton, setShowNextButton] = useState(true)
+  const [showPrevButton, setShowPrevButton] = useState(false)
 
-  const router = useRouter()
+  const router = useRouter();
 
   const fetchOffers = async () => {
-    const res = await api.get('/offers/index-offers');
+    const res = await api.get(`/offers/index-offers?rows=${10}`);
     const offersRes = await res.data;
     setOffers(offersRes);
+    setInitialOffersId(offersRes[0].id)
     return;
   };
 
@@ -38,6 +45,48 @@ function DashboardOffers() {
     setDeleteOfferId('');
     setIsOpen(false);
     fetchOffers();
+  };
+
+  const handlePagination = async (direction) => {
+    NProgress.start();
+    let offersRes
+
+    if(direction === 'next') {
+      const index = offers.length - 1;
+      const rows = 10
+      const res = await api.get(
+        `/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
+      );
+      offersRes = await res.data;
+
+      setShowPrevButton(true)
+
+      if (offersRes.length < 10) {
+        setShowNextButton(false)
+      }
+    }
+
+    if (direction === 'prev') {
+      const rows = -10
+      const res = await api.get(
+        `/offers/index-offers?cursor=${offers[0].id}&rows=${rows}`
+      );
+      offersRes = await res.data;
+      console.log(offersRes[0].id)
+      console.log(initialOffersId)
+
+      if (offersRes.length === 10 ) {
+        setShowNextButton(true)
+      }
+
+      if (offersRes[0].id === initialOffersId) {
+        setShowPrevButton(false)
+      }
+    }
+
+    setOffers(offersRes);
+    NProgress.done();
+    return;
   };
 
   return (
@@ -66,7 +115,11 @@ function DashboardOffers() {
         <DashboardMenu />
         <div className={styles.offersContent}>
           <h1>Gerenciamento de Ofertas</h1>
-          <button type='button' className={styles.newOfferButton} onClick={() => router.push('/create-offer')}>
+          <button
+            type='button'
+            className={styles.newOfferButton}
+            onClick={() => router.push('/create-offer')}
+          >
             NOVA OFERTA
           </button>
 
@@ -104,13 +157,14 @@ function DashboardOffers() {
                           setIsOpen(true);
                           setDeleteOfferId(offer.id);
                         }}
-                        onClickEdit={() => router.push({
-                          pathname: "/create-offer",
-                          query: {
-                            id: offer.id
-                          }
-                        })}
-                        
+                        onClickEdit={() =>
+                          router.push({
+                            pathname: '/create-offer',
+                            query: {
+                              id: offer.id
+                            }
+                          })
+                        }
                       />
                     </td>
                   </tr>
@@ -118,6 +172,12 @@ function DashboardOffers() {
               })}
             </tbody>
           </table>
+          <Pagination
+            showNextButton={showNextButton}
+            showPrevButton={showPrevButton}
+            onClickNext={() => handlePagination('next')}
+            onClickPrev={() => handlePagination('prev')}
+          />
         </div>
       </div>
     </>

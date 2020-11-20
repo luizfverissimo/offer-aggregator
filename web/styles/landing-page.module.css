@@ -61,8 +61,8 @@
   width: 100%;
   max-width: 100vw;
 
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 350px);
+  display: flex;
+  flex-wrap: wrap;  
   align-items: center;
   justify-content: center;
 }
