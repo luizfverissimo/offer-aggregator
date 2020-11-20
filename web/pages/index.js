@@ -9,17 +9,36 @@ import Card from '../components/OfferCard';
 import api from '../services/api';
 import styles from '../styles/landing-page.module.css';
 
-export async function getServerSideProps({query}) {
-  let offers
-  if (!query.search || query.search === '') {
-    const res = await api.get('/offers/index-offers');
-    offers = await res.data;
+export async function getServerSideProps({ query }) {
+
+  if (query.search) {
+    if (query.search === '') {
+      const res = await api.get('/offers/index-offers');
+      const offers = await res.data;
+      return {
+        props: { offers }
+      };
+    }
+
+    if (query.search && query.search !== '') {
+      const res = await api.get(`/offers/search-offers?search=${query.search}`);
+      offers = await res.data;
+      return {
+        props: { offers }
+      };
+    }
   }
 
-  if(query.search && query.search !== '') {
-    const res = await api.get(`/offers/search-offers?search=${query.search}`);
-    offers = await res.data;
+  if (query.cursor) {
+    const res = await api.get(`/offers/index-offers?cursor=${query.cursor}`);
+    const offers = await res.data;
+    return {
+      props: { offers }
+    };
   }
+
+  const res = await api.get('/offers/index-offers');
+  const offers = await res.data;
 
   return {
     props: { offers }
@@ -29,10 +48,10 @@ export async function getServerSideProps({query}) {
 export default function Home({ offers }) {
   const [isOpen, setIsOpen] = useState(false);
   const [offerLink, setOfferLink] = useState('');
-  const [searchQuery, setSearchQuery] = useState('')
-  const [timer, setTimer] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('');
+  const [timer, setTimer] = useState(null);
 
-  const router = useRouter()
+  const router = useRouter();
 
   async function submitOfferLinkHandler() {
     const regExUrlValidation = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
@@ -59,39 +78,48 @@ export default function Home({ offers }) {
   }
 
   const fetchSearchOffers = (query) => {
-    if(query === '') {
-      router.push('/')
+    if (query === '') {
+      router.push('/');
     }
 
     router.push({
-      pathname: "/",
+      pathname: '/',
       query: {
         search: query
       }
-    })
-  }
+    });
+  };
 
   const handleSearchEnter = (e) => {
-    if(e.keyCode === 13){
-      clearTimeout(timer)
-      fetchSearchOffers()
-      return
+    if (e.keyCode === 13) {
+      clearTimeout(timer);
+      fetchSearchOffers();
+      return;
     }
-    return
-  }
+    return;
+  };
 
   const handleAutoSearch = (e) => {
-    setSearchQuery(e.target.value)
-    clearTimeout(timer)
-    if(e.target.value.length > 3 || e.target.value.length === 0) {
+    setSearchQuery(e.target.value);
+    clearTimeout(timer);
+    if (e.target.value.length > 3 || e.target.value.length === 0) {
       const actualTimer = setTimeout(() => {
-        fetchSearchOffers(e.target.value)
-      }, 2000)
-  
-      setTimer(actualTimer)
+        fetchSearchOffers(e.target.value);
+      }, 2000);
+
+      setTimer(actualTimer);
     }
-    return
-  }
+    return;
+  };
+
+  const handleNextOffers = async () => {
+    router.push({
+      pathname: '/',
+      query: {
+        cursor: offers[4].id
+      }
+    });
+  };
 
   return (
     <>
@@ -126,7 +154,13 @@ export default function Home({ offers }) {
               alt='Super Oferta do Dia - Logo'
             />
 
-            <input type='text' placeholder='🔎 Pesquise por um produto' value={searchQuery} onKeyUp={e => handleSearchEnter(e)} onChange={e => handleAutoSearch(e)}/>
+            <input
+              type='text'
+              placeholder='🔎 Pesquise por um produto'
+              value={searchQuery}
+              onKeyUp={(e) => handleSearchEnter(e)}
+              onChange={(e) => handleAutoSearch(e)}
+            />
 
             <a className={styles.enviarPromo} onClick={() => setIsOpen(true)}>
               <img
@@ -160,6 +194,9 @@ export default function Home({ offers }) {
           })}
         </section>
       </main>
+      <footer>
+        <button onClick={handleNextOffers}>Próximo</button>
+      </footer>
     </>
   );
 }
