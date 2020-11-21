@@ -22,7 +22,14 @@ const searchOffers = async (req, res) => {
         select: {
           name: true
         }
-      }
+      },
+      affiliate: {
+        select: {
+          id: true,
+          store: true,
+          affiliateLink: true
+        }
+      },
     },
     orderBy: { createdAt: 'desc' }
   });

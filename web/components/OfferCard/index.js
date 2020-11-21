@@ -57,9 +57,10 @@ export default function Card({
         <Modal onClickCloseModal={() => setIsOpen(false)}>
           <h2>Use o código do cupom para obter o desconto.</h2>
           <textarea
+            readOnly
             id='coupon'
             value={coupon}
-            disable
+            disable="true"
             ref={textAreaRef}
             style={{
               color: 'var(--color-dark-blue)',

@@ -40,7 +40,7 @@ function CreateOffer() {
     setCoupon(offer.coupon);
     setOfferText(offer.offerText);
     setStore(offer.store);
-    setAffiliate(offer.affiliate)
+    setAffiliate(offer.affiliate.id)
     return;
   };
 
@@ -85,6 +85,8 @@ function CreateOffer() {
       return parseInt(numberWithOutComma);
     };
 
+    
+
     if (offerId) {
       const res = await api.put('/offers/update-offer', {
         id: offerId,
@@ -95,9 +97,10 @@ function CreateOffer() {
         offerPrice: removeComma(offerPrice),
         normalPrice: removeComma(normalPrice),
         coupon,
-        affiliate,
+        affiliate: Number(affiliate),
         offerText,
-        store: storeUppercase
+        store: storeUppercase,
+        author
       });
 
       alert('Oferta atualizada com sucesso!');
@@ -113,7 +116,7 @@ function CreateOffer() {
       offerPrice: removeComma(offerPrice),
       normalPrice: removeComma(normalPrice),
       coupon,
-      affiliate,
+      affiliate: Number(affiliate),
       offerText,
       store: storeUppercase,
       author
@@ -174,11 +177,10 @@ function CreateOffer() {
               </div>
               <div className={styles.container}>
                 <label>Afiliado</label>
-                <select onChange={(e) => setAffiliate(e.target.value)} >
-                <option value='SEM'>SEM</option>
+                <select value={affiliate} onChange={(e) => setAffiliate(e.target.value)} >
                   {affiliateLinks.map((affiliateLink) => {
                     return (
-                      <option key={affiliateLink.id} selected={Number(affiliate) === affiliateLink.id} value={affiliateLink.id}>{affiliateLink.store}</option>
+                      <option key={affiliateLink.id} value={affiliateLink.id}>{affiliateLink.store}</option>
                     );
                   })}
                 </select>

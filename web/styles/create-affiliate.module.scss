@@ -1,0 +1,125 @@
+.content {
+  width: 100vw;
+  height: auto;
+  color: var(--color-dark-blue);
+  display: flex;
+
+  .createOfferContent {
+    margin-left: max(260px, 21%);
+    margin-right: 5%;
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .headerContainer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        background-color: var(--color-green);
+        width: 180px;
+        height: 42px;
+        border: 0;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Roboto, sans-serif;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #28b8a0;
+        }
+      }
+    }
+
+    form {
+      width: 85%;
+
+      .oneColumn {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .twoColumn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .container {
+          width: 45%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+        }
+      }
+
+      label {
+        width: 100%;
+        text-align: left;
+        color: var(--color-dark-blue);
+        font-family: Roboto, sans-serif;
+        font-weight: bold;
+        font-size: 18px;
+        margin: 20px 0;
+      }
+
+      input {
+        width: 100%;
+        height: 50px;
+        font-family: Roboto, sans-serif;
+        color: var(--color-dark-blue);
+        font-size: 18px;
+        padding: 0 16px;
+        border: 1px solid var(--color-dark-blue);
+        outline: 0;
+        border-radius: 8px;
+
+        &:focus {
+          border: 1px solid var(--color-green);
+        }
+      }
+
+      textarea {
+        width: 100%;
+        height: 80px;
+        font-family: Roboto, sans-serif;
+        color: var(--color-dark-blue);
+        font-size: 18px;
+        padding: 16px;
+        border: 1px solid var(--color-dark-blue);
+        outline: 0;
+        border-radius: 8px;
+
+        &:focus {
+          border: 1px solid var(--color-green);
+        }
+      }
+
+      select {
+        width: 100%;
+        height: 50px;
+        font-family: Roboto, sans-serif;
+        color: var(--color-dark-blue);
+        font-size: 18px;
+        padding: 0 16px;
+        border: 1px solid var(--color-dark-blue);
+        outline: 0;
+        border-radius: 8px;
+
+        &:focus {
+          border: 1px solid var(--color-green);
+        }
+      }
+    }
+  }
+}

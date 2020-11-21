@@ -10,27 +10,28 @@ import styles from '../styles/dashboard-suggestions.module.css';
 import ActionButtons from '../components/ActionButtons';
 import api from '../services/api';
 
-
 function DashboardAffiliates() {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteAffiliateId, setDeleteAffiliateId] = useState('');
-  const [affiliates, setAffiliates] = useState([])
-  
+  const [affiliates, setAffiliates] = useState([]);
+
   const router = useRouter();
 
   const fetchAffiliates = async () => {
     const res = await api.get(`/affiliates/index-affiliates`);
     const affiliatesRes = await res.data;
-    setAffiliates(affiliatesRes)
-    return ;
+    setAffiliates(affiliatesRes);
+    return;
   };
 
   useEffect(() => {
-    fetchAffiliates()
+    fetchAffiliates();
   }, []);
 
   const handleDeleteOffer = async () => {
-    const res = await api.delete(`/affiliates/delete-affiliate?id=${deleteAffiliateId}`);
+    const res = await api.delete(
+      `/affiliates/delete-affiliate?id=${deleteAffiliateId}`
+    );
     setDeleteAffiliateId('');
     setIsOpen(false);
     fetchAffiliates();
@@ -39,7 +40,7 @@ function DashboardAffiliates() {
   return (
     <>
       <Head>
-        <title>Sugestões de Ofertas - Super Oferta do Dia</title>
+        <title>Gerenciamento de link de afiliados - Super Oferta do Dia</title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
@@ -67,7 +68,7 @@ function DashboardAffiliates() {
             className={styles.newOfferButton}
             onClick={() => router.push('/create-affiliate')}
           >
-          NOVO LINK
+            NOVO LINK
           </button>
 
           <table className={styles.table}>
@@ -76,20 +77,29 @@ function DashboardAffiliates() {
                 <th style={{ width: 50 }}>id</th>
                 <th>Afiliado</th>
                 <th>Link</th>
-                <th style={{ width: 150 }}>Ações</th>
+                <th style={{ width: 80 }}>Ações</th>
               </tr>
             </thead>
             <tbody>
               {affiliates.map((affiliate) => {
                 return (
                   <tr key={affiliate.id} className={styles.tableData}>
-                    <td style={{ width: 50, textAlign: "center" }}>{affiliate.id}</td>
+                    <td style={{ width: 50, textAlign: 'center' }}>
+                      {affiliate.id}
+                    </td>
                     <td style={{ width: 200 }}>{affiliate.store}</td>
                     <td style={{ width: 200 }}>{affiliate.affiliateLink}</td>
                     <td className={styles.actionContainer}>
                       <ActionButtons
                         affiliate
-                        onClickEdit={() => {}}
+                        onClickEdit={() =>
+                          router.push({
+                            pathname: '/create-affiliate',
+                            query: {
+                              id: affiliate.id
+                            }
+                          })
+                        }
                         onClickDelete={() => {
                           setIsOpen(true);
                           setDeleteAffiliateId(affiliate.id);

@@ -62,7 +62,7 @@ export default function Home() {
   const fetchSearchOffers = async (query) => {
     NProgress.start();
     if (query === '') {
-      const res = await api.get('/offers/index-offers');
+      const res = await api.get('/offers/index-offers?rows=10');
       const offersRes = await res.data;
       setOffers(offersRes);
       NProgress.done();
@@ -117,6 +117,12 @@ export default function Home() {
     NProgress.done();
     return;
   };
+
+  const urlAffiliateConstructor = (urlOffer, affiliateLink) => {
+    console.log('foi?')
+    const completeUrl = urlOffer.concat(affiliateLink)
+    return completeUrl
+  }
 
   return (
     <>
@@ -191,13 +197,14 @@ export default function Home() {
         >
           <section className={styles.pageContent}>
             {offers.map((offer, index) => {
+              const completeUrl = urlAffiliateConstructor(offer.urlOffer, offer.affiliate.affiliateLink)
               return (
                 <Card
                   key={index}
                   active={offer.active}
                   name={offer.name}
                   urlImage={offer.urlImage}
-                  urlOffer={offer.urlOffer}
+                  urlOffer={completeUrl}
                   offerPrice={offer.offerPrice}
                   normalPrice={offer.normalPrice}
                   coupon={offer.coupon}
@@ -205,6 +212,7 @@ export default function Home() {
                   store={offer.store}
                   author={offer.author.name}
                   createdAt={offer.createdAt}
+                  
                 />
               );
             })}

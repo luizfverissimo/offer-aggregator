@@ -454,7 +454,7 @@ export declare const OfferDistinctFieldEnum: {
   offerText: 'offerText',
   store: 'store',
   coupon: 'coupon',
-  affiliate: 'affiliate',
+  affiliateId: 'affiliateId',
   createdAt: 'createdAt',
   createdAtDb: 'createdAtDb',
   authorId: 'authorId'
@@ -519,7 +519,7 @@ export type Offer = {
   offerText: string
   store: string
   coupon: string
-  affiliate: string
+  affiliateId: number
   createdAt: string
   createdAtDb: Date
   authorId: number
@@ -538,6 +538,7 @@ export type OfferAvgAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
+  affiliateId: number
   authorId: number
 }
 
@@ -545,6 +546,7 @@ export type OfferSumAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
+  affiliateId: number
   authorId: number
 }
 
@@ -552,6 +554,7 @@ export type OfferMinAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
+  affiliateId: number
   authorId: number
 }
 
@@ -559,6 +562,7 @@ export type OfferMaxAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
+  affiliateId: number
   authorId: number
 }
 
@@ -567,6 +571,7 @@ export type OfferAvgAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
+  affiliateId?: true
   authorId?: true
 }
 
@@ -574,6 +579,7 @@ export type OfferSumAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
+  affiliateId?: true
   authorId?: true
 }
 
@@ -581,6 +587,7 @@ export type OfferMinAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
+  affiliateId?: true
   authorId?: true
 }
 
@@ -588,6 +595,7 @@ export type OfferMaxAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
+  affiliateId?: true
   authorId?: true
 }
 
@@ -627,7 +635,8 @@ export type OfferSelect = {
   offerText?: boolean
   store?: boolean
   coupon?: boolean
-  affiliate?: boolean
+  affiliateId?: boolean
+  affiliate?: boolean | AffiliateLinkArgs
   createdAt?: boolean
   createdAtDb?: boolean
   author?: boolean | UserArgs
@@ -635,6 +644,7 @@ export type OfferSelect = {
 }
 
 export type OfferInclude = {
+  affiliate?: boolean | AffiliateLinkArgs
   author?: boolean | UserArgs
 }
 
@@ -649,6 +659,8 @@ export type OfferGetPayload<
   ? 'include' extends U
     ? Offer  & {
       [P in TrueKeys<S['include']>]:
+      P extends 'affiliate'
+      ? AffiliateLinkGetPayload<S['include'][P]> :
       P extends 'author'
       ? UserGetPayload<S['include'][P]> : never
     }
@@ -656,6 +668,8 @@ export type OfferGetPayload<
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Offer ? Offer[P]
 : 
+      P extends 'affiliate'
+      ? AffiliateLinkGetPayload<S['select'][P]> :
       P extends 'author'
       ? UserGetPayload<S['select'][P]> : never
     }
@@ -842,6 +856,8 @@ export declare class Prisma__OfferClient<T> implements Promise<T> {
   private _requestPromise?;
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+  affiliate<T extends AffiliateLinkArgs = {}>(args?: Subset<T, AffiliateLinkArgs>): CheckSelect<T, Prisma__AffiliateLinkClient<AffiliateLink | null>, Prisma__AffiliateLinkClient<AffiliateLinkGetPayload<T> | null>>;
 
   author<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null>, Prisma__UserClient<UserGetPayload<T> | null>>;
 
@@ -2153,6 +2169,11 @@ export type AffiliateLinkSelect = {
   id?: boolean
   store?: boolean
   affiliateLink?: boolean
+  Offer?: boolean | FindManyOfferArgs
+}
+
+export type AffiliateLinkInclude = {
+  Offer?: boolean | FindManyOfferArgs
 }
 
 export type AffiliateLinkGetPayload<
@@ -2164,12 +2185,17 @@ export type AffiliateLinkGetPayload<
   ? never
   : S extends AffiliateLinkArgs | FindManyAffiliateLinkArgs
   ? 'include' extends U
-    ? AffiliateLink 
+    ? AffiliateLink  & {
+      [P in TrueKeys<S['include']>]:
+      P extends 'Offer'
+      ? Array<OfferGetPayload<S['include'][P]>> : never
+    }
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof AffiliateLink ? AffiliateLink[P]
 : 
- never
+      P extends 'Offer'
+      ? Array<OfferGetPayload<S['select'][P]>> : never
     }
   : AffiliateLink
 : AffiliateLink
@@ -2355,6 +2381,7 @@ export declare class Prisma__AffiliateLinkClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
+  Offer<T extends FindManyOfferArgs = {}>(args?: Subset<T, FindManyOfferArgs>): CheckSelect<T, Promise<Array<Offer>>, Promise<Array<OfferGetPayload<T>>>>;
 
   private get _document();
   /**
@@ -2390,6 +2417,10 @@ export type FindOneAffiliateLinkArgs = {
   **/
   select?: AffiliateLinkSelect | null
   /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
+  /**
    * Filter, which AffiliateLink to fetch.
   **/
   where: AffiliateLinkWhereUniqueInput
@@ -2404,6 +2435,10 @@ export type FindFirstAffiliateLinkArgs = {
    * Select specific fields to fetch from the AffiliateLink
   **/
   select?: AffiliateLinkSelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
   /**
    * Filter, which AffiliateLink to fetch.
   **/
@@ -2424,6 +2459,10 @@ export type FindManyAffiliateLinkArgs = {
    * Select specific fields to fetch from the AffiliateLink
   **/
   select?: AffiliateLinkSelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
   /**
    * Filter, which AffiliateLinks to fetch.
   **/
@@ -2457,6 +2496,10 @@ export type AffiliateLinkCreateArgs = {
   **/
   select?: AffiliateLinkSelect | null
   /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
+  /**
    * The data needed to create a AffiliateLink.
   **/
   data: AffiliateLinkCreateInput
@@ -2471,6 +2514,10 @@ export type AffiliateLinkUpdateArgs = {
    * Select specific fields to fetch from the AffiliateLink
   **/
   select?: AffiliateLinkSelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
   /**
    * The data needed to update a AffiliateLink.
   **/
@@ -2500,6 +2547,10 @@ export type AffiliateLinkUpsertArgs = {
   **/
   select?: AffiliateLinkSelect | null
   /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
+  /**
    * The filter to search for the AffiliateLink to update in case it exists.
   **/
   where: AffiliateLinkWhereUniqueInput
@@ -2523,6 +2574,10 @@ export type AffiliateLinkDeleteArgs = {
   **/
   select?: AffiliateLinkSelect | null
   /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
+  /**
    * Filter which AffiliateLink to delete.
   **/
   where: AffiliateLinkWhereUniqueInput
@@ -2545,6 +2600,10 @@ export type AffiliateLinkArgs = {
    * Select specific fields to fetch from the AffiliateLink
   **/
   select?: AffiliateLinkSelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: AffiliateLinkInclude | null
 }
 
 
@@ -2569,7 +2628,8 @@ export type OfferWhereInput = {
   offerText?: StringFilter | string
   store?: StringFilter | string
   coupon?: StringFilter | string
-  affiliate?: StringFilter | string
+  affiliateId?: IntFilter | number
+  affiliate?: AffiliateLinkRelationFilter | AffiliateLinkWhereInput
   createdAt?: StringFilter | string
   createdAtDb?: DateTimeFilter | Date | string
   author?: UserRelationFilter | UserWhereInput
@@ -2588,7 +2648,7 @@ export type OfferOrderByInput = {
   offerText?: SortOrder
   store?: SortOrder
   coupon?: SortOrder
-  affiliate?: SortOrder
+  affiliateId?: SortOrder
   createdAt?: SortOrder
   createdAtDb?: SortOrder
   authorId?: SortOrder
@@ -2653,6 +2713,7 @@ export type AffiliateLinkWhereInput = {
   id?: IntFilter | number
   store?: StringFilter | string
   affiliateLink?: StringFilter | string
+  Offer?: OfferListRelationFilter
 }
 
 export type AffiliateLinkOrderByInput = {
@@ -2676,9 +2737,9 @@ export type OfferCreateInput = {
   offerText: string
   store: string
   coupon?: string
-  affiliate?: string
   createdAt: string
   createdAtDb?: Date | string
+  affiliate?: AffiliateLinkCreateOneWithoutOfferInput
   author: UserCreateOneWithoutOfferInput
 }
 
@@ -2693,9 +2754,9 @@ export type OfferUpdateInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   coupon?: string | StringFieldUpdateOperationsInput
-  affiliate?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  affiliate?: AffiliateLinkUpdateOneRequiredWithoutOfferInput
   author?: UserUpdateOneRequiredWithoutOfferInput
 }
 
@@ -2710,7 +2771,6 @@ export type OfferUpdateManyMutationInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   coupon?: string | StringFieldUpdateOperationsInput
-  affiliate?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
 }
@@ -2762,11 +2822,13 @@ export type OfferSuggestionUpdateManyMutationInput = {
 export type AffiliateLinkCreateInput = {
   store: string
   affiliateLink: string
+  Offer?: OfferCreateManyWithoutAffiliateInput
 }
 
 export type AffiliateLinkUpdateInput = {
   store?: string | StringFieldUpdateOperationsInput
   affiliateLink?: string | StringFieldUpdateOperationsInput
+  Offer?: OfferUpdateManyWithoutAffiliateInput
 }
 
 export type AffiliateLinkUpdateManyMutationInput = {
@@ -2804,6 +2866,11 @@ export type StringFilter = {
   not?: string | NestedStringFilter
 }
 
+export type AffiliateLinkRelationFilter = {
+  is?: AffiliateLinkWhereInput
+  isNot?: AffiliateLinkWhereInput
+}
+
 export type DateTimeFilter = {
   equals?: Date | string
   in?: Enumerable<Date> | Enumerable<string>
@@ -2824,6 +2891,11 @@ export type OfferListRelationFilter = {
   every?: OfferWhereInput
   some?: OfferWhereInput
   none?: OfferWhereInput
+}
+
+export type AffiliateLinkCreateOneWithoutOfferInput = {
+  create?: AffiliateLinkCreateWithoutOfferInput
+  connect?: AffiliateLinkWhereUniqueInput
 }
 
 export type UserCreateOneWithoutOfferInput = {
@@ -2851,6 +2923,13 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type AffiliateLinkUpdateOneRequiredWithoutOfferInput = {
+  create?: AffiliateLinkCreateWithoutOfferInput
+  connect?: AffiliateLinkWhereUniqueInput
+  update?: AffiliateLinkUpdateWithoutOfferDataInput
+  upsert?: AffiliateLinkUpsertWithoutOfferInput
+}
+
 export type UserUpdateOneRequiredWithoutOfferInput = {
   create?: UserCreateWithoutOfferInput
   connect?: UserWhereUniqueInput
@@ -2873,6 +2952,23 @@ export type OfferUpdateManyWithoutAuthorInput = {
   updateMany?: OfferUpdateManyWithWhereNestedInput | Enumerable<OfferUpdateManyWithWhereNestedInput>
   deleteMany?: OfferScalarWhereInput | Enumerable<OfferScalarWhereInput>
   upsert?: OfferUpsertWithWhereUniqueWithoutAuthorInput | Enumerable<OfferUpsertWithWhereUniqueWithoutAuthorInput>
+}
+
+export type OfferCreateManyWithoutAffiliateInput = {
+  create?: OfferCreateWithoutAffiliateInput | Enumerable<OfferCreateWithoutAffiliateInput>
+  connect?: OfferWhereUniqueInput | Enumerable<OfferWhereUniqueInput>
+}
+
+export type OfferUpdateManyWithoutAffiliateInput = {
+  create?: OfferCreateWithoutAffiliateInput | Enumerable<OfferCreateWithoutAffiliateInput>
+  connect?: OfferWhereUniqueInput | Enumerable<OfferWhereUniqueInput>
+  set?: OfferWhereUniqueInput | Enumerable<OfferWhereUniqueInput>
+  disconnect?: OfferWhereUniqueInput | Enumerable<OfferWhereUniqueInput>
+  delete?: OfferWhereUniqueInput | Enumerable<OfferWhereUniqueInput>
+  update?: OfferUpdateWithWhereUniqueWithoutAffiliateInput | Enumerable<OfferUpdateWithWhereUniqueWithoutAffiliateInput>
+  updateMany?: OfferUpdateManyWithWhereNestedInput | Enumerable<OfferUpdateManyWithWhereNestedInput>
+  deleteMany?: OfferScalarWhereInput | Enumerable<OfferScalarWhereInput>
+  upsert?: OfferUpsertWithWhereUniqueWithoutAffiliateInput | Enumerable<OfferUpsertWithWhereUniqueWithoutAffiliateInput>
 }
 
 export type NestedIntFilter = {
@@ -2916,12 +3012,27 @@ export type NestedDateTimeFilter = {
   not?: Date | string | NestedDateTimeFilter
 }
 
+export type AffiliateLinkCreateWithoutOfferInput = {
+  store: string
+  affiliateLink: string
+}
+
 export type UserCreateWithoutOfferInput = {
   name: string
   email: string
   role?: string
   password: string
   createdAtDb?: Date | string
+}
+
+export type AffiliateLinkUpdateWithoutOfferDataInput = {
+  store?: string | StringFieldUpdateOperationsInput
+  affiliateLink?: string | StringFieldUpdateOperationsInput
+}
+
+export type AffiliateLinkUpsertWithoutOfferInput = {
+  update: AffiliateLinkUpdateWithoutOfferDataInput
+  create: AffiliateLinkCreateWithoutOfferInput
 }
 
 export type UserUpdateWithoutOfferDataInput = {
@@ -2948,9 +3059,9 @@ export type OfferCreateWithoutAuthorInput = {
   offerText: string
   store: string
   coupon?: string
-  affiliate?: string
   createdAt: string
   createdAtDb?: Date | string
+  affiliate?: AffiliateLinkCreateOneWithoutOfferInput
 }
 
 export type OfferUpdateWithWhereUniqueWithoutAuthorInput = {
@@ -2978,7 +3089,7 @@ export type OfferScalarWhereInput = {
   offerText?: StringFilter | string
   store?: StringFilter | string
   coupon?: StringFilter | string
-  affiliate?: StringFilter | string
+  affiliateId?: IntFilter | number
   createdAt?: StringFilter | string
   createdAtDb?: DateTimeFilter | Date | string
   authorId?: IntFilter | number
@@ -2988,6 +3099,33 @@ export type OfferUpsertWithWhereUniqueWithoutAuthorInput = {
   where: OfferWhereUniqueInput
   update: OfferUpdateWithoutAuthorDataInput
   create: OfferCreateWithoutAuthorInput
+}
+
+export type OfferCreateWithoutAffiliateInput = {
+  active: boolean
+  name: string
+  urlImage: string
+  urlOffer: string
+  description: string
+  offerPrice: number
+  normalPrice: number
+  offerText: string
+  store: string
+  coupon?: string
+  createdAt: string
+  createdAtDb?: Date | string
+  author: UserCreateOneWithoutOfferInput
+}
+
+export type OfferUpdateWithWhereUniqueWithoutAffiliateInput = {
+  where: OfferWhereUniqueInput
+  data: OfferUpdateWithoutAffiliateDataInput
+}
+
+export type OfferUpsertWithWhereUniqueWithoutAffiliateInput = {
+  where: OfferWhereUniqueInput
+  update: OfferUpdateWithoutAffiliateDataInput
+  create: OfferCreateWithoutAffiliateInput
 }
 
 export type OfferUpdateWithoutAuthorDataInput = {
@@ -3001,9 +3139,9 @@ export type OfferUpdateWithoutAuthorDataInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   coupon?: string | StringFieldUpdateOperationsInput
-  affiliate?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  affiliate?: AffiliateLinkUpdateOneRequiredWithoutOfferInput
 }
 
 export type OfferUpdateManyDataInput = {
@@ -3017,9 +3155,24 @@ export type OfferUpdateManyDataInput = {
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
   coupon?: string | StringFieldUpdateOperationsInput
-  affiliate?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+}
+
+export type OfferUpdateWithoutAffiliateDataInput = {
+  active?: boolean | BoolFieldUpdateOperationsInput
+  name?: string | StringFieldUpdateOperationsInput
+  urlImage?: string | StringFieldUpdateOperationsInput
+  urlOffer?: string | StringFieldUpdateOperationsInput
+  description?: string | StringFieldUpdateOperationsInput
+  offerPrice?: number | IntFieldUpdateOperationsInput
+  normalPrice?: number | IntFieldUpdateOperationsInput
+  offerText?: string | StringFieldUpdateOperationsInput
+  store?: string | StringFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
+  createdAt?: string | StringFieldUpdateOperationsInput
+  createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  author?: UserUpdateOneRequiredWithoutOfferInput
 }
 
 /**

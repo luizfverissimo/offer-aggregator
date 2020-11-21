@@ -12,25 +12,11 @@ export default authenticated(async function (req, res) {
 
   const { id } = req.query;
 
-  const offers = await prisma.offer.findOne({
-    where: { id: Number(id) },
-    include: {
-      author: {
-        select: {
-          name: true
-        }
-      },
-      affiliate: {
-        select: {
-          id: true,
-          store: true,
-          affiliateLink: true
-        }
-      }
-    },
+  const affiliate = await prisma.affiliateLink.findOne({
+    where: { id: Number(id) }
   });
 
   res.statusCode = 200;
-  res.json(offers);
-  return
-})
+  res.json(affiliate);
+  return res;
+});

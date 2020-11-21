@@ -19,6 +19,13 @@ const indexOffers = async (req, res) => {
           select: {
             name: true
           }
+        },
+        affiliate: {
+          select: {
+            id: true,
+            store: true,
+            affiliateLink: true
+          }
         }
       },
       orderBy: { id: 'desc' }
@@ -40,6 +47,13 @@ const indexOffers = async (req, res) => {
         author: {
           select: {
             name: true
+          }
+        },
+        affiliate: {
+          select: {
+            id: true,
+            store: true,
+            affiliateLink: true
           }
         }
       },

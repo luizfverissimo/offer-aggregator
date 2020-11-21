@@ -22,7 +22,8 @@ model Offer {
   offerText String
   store String
   coupon String @default("SEM")
-  affiliate String @default("SEM")
+  affiliateId Int @default(4)
+  affiliate AffiliateLink @relation(fields: [affiliateId], references: [id])
   createdAt String
   createdAtDb DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])

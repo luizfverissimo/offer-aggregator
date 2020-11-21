@@ -22,6 +22,7 @@ export default authenticated(async function (req, res) {
     affiliate,
     store,
     offerText,
+    author
   } = await req.body;
 
   const createdAt = moment().format('YYYY/MM/DD HH:mm');
@@ -38,13 +39,19 @@ export default authenticated(async function (req, res) {
       offerPrice,
       normalPrice,
       coupon,
-      affiliate,
+      affiliate: {
+        connect: { id: affiliate }
+      },
       store,
       createdAt,
       offerText,
+      author: {
+        connect: { id: author }
+      }
     }
-  })
+  });
 
   res.statusCode = 201;
   res.json({ message: 'Oferta atualizada com sucesso!' });
+  return res
 });

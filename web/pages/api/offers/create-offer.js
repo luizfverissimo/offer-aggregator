@@ -26,9 +26,6 @@ export default authenticated(async function (req, res) {
 
   const active = true;
   const createdAt = moment().format('YYYY/MM/DD HH:mm');
-  if (!affiliate) {
-    affiliate = 'SEM'
-  }
 
   await prisma.offer.create({
     data: {
@@ -40,7 +37,9 @@ export default authenticated(async function (req, res) {
       offerPrice,
       normalPrice,
       coupon,
-      affiliate,
+      affiliate: {
+        connect: { id: affiliate }
+      },
       store,
       createdAt,
       offerText,
@@ -52,4 +51,5 @@ export default authenticated(async function (req, res) {
 
   res.statusCode = 201;
   res.json({ message: 'Oferta criada com sucesso!' });
+  return res
 });

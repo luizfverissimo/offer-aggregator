@@ -23,6 +23,9 @@ const ProtectRoute = ({ children }) => {
       case '/create-offer':
         return authenticatedRoute(children);
 
+      case '/create-affiliate':
+        return authenticatedRoute(children);
+
       case '/':
         return <>{children}</>;
 
