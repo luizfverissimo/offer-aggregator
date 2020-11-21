@@ -7,13 +7,34 @@ export default authenticated(async function (req, res) {
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.json({ error: `This endpoint do not receive ${req.method} request` });
-    return;
+    return res;
   }
-  const offers = await prisma.offerSuggestion.findMany({
-    orderBy: { createdAt: 'desc' }
-  });
 
-  res.statusCode = 200;
+  const { cursor, rows } = req.query;
+
+  if (!cursor) {
+    const offers = await prisma.offerSuggestion.findMany({
+      take: Number(rows),
+      orderBy: { id: 'desc' }
+    });
+    res.statusCode = 200;
+    res.json(offers);
+    return res;
+  }
+
+  if(cursor) {
+    
+    const offers = await prisma.offerSuggestion.findMany({
+      take: Number(rows),
+      skip: 1,
+      cursor: {
+        id: Number(cursor)
+      },
+      orderBy: { id: 'desc' }
+    });
+
+    res.statusCode = 200;
   res.json(offers);
-  return;
+  return res;
+  }
 });

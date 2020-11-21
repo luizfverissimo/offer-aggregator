@@ -14,6 +14,9 @@ const ProtectRoute = ({ children }) => {
       case '/dashboard-suggestions':
         return authenticatedRoute(children);
 
+      case '/dashboard-affiliates':
+        return authenticatedRoute(children);
+
       case '/dashboard-offers':
         return authenticatedRoute(children);
 

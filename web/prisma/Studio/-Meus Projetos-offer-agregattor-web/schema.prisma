@@ -22,6 +22,7 @@ model Offer {
   offerText String
   store String
   coupon String @default("SEM")
+  affiliate String @default("SEM")
   createdAt String
   createdAtDb DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])

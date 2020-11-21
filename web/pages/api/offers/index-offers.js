@@ -9,12 +9,9 @@ const indexOffers = async (req, res) => {
     return;
   }
 
-  const { cursor, rows } = req.query
-  console.log('cursor', cursor)
-  console.log('rows', rows)
+  const { cursor, rows } = req.query;
 
-
-  if(!cursor) {
+  if (!cursor) {
     const offers = await prisma.offer.findMany({
       take: Number(rows),
       include: {
@@ -29,7 +26,7 @@ const indexOffers = async (req, res) => {
 
     res.statusCode = 200;
     res.json(offers);
-    return
+    return;
   }
 
   if (cursor) {
@@ -51,8 +48,8 @@ const indexOffers = async (req, res) => {
 
     res.statusCode = 200;
     res.json(offers);
-    return
+    return;
   }
-}
+};
 
-export default indexOffers
+export default indexOffers;

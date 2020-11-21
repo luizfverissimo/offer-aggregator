@@ -26,6 +26,10 @@ function DashboardOffers() {
   const fetchOffers = async () => {
     const res = await api.get(`/offers/index-offers?rows=${10}`);
     const offersRes = await res.data;
+    setShowPrevButton(false)
+    if (offersRes.length < 10) {
+      setShowNextButton(false)
+    }
     setOffers(offersRes);
     setInitialOffersId(offersRes[0].id)
     return;
@@ -72,8 +76,6 @@ function DashboardOffers() {
         `/offers/index-offers?cursor=${offers[0].id}&rows=${rows}`
       );
       offersRes = await res.data;
-      console.log(offersRes[0].id)
-      console.log(initialOffersId)
 
       if (offersRes.length === 10 ) {
         setShowNextButton(true)

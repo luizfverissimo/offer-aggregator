@@ -46,7 +46,7 @@ function Dashboard() {
             </Link>
           </li>
           <li className={router.pathname === '/dashboard-affiliates' ? styles.selected : null}>
-            <Link href='#'>
+            <Link href='/dashboard-affiliates'>
               <a>
                 <img src={require('../../public/link.svg')} />
                 <p>Gerenciar Links de Afiliados</p>

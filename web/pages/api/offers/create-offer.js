@@ -18,6 +18,7 @@ export default authenticated(async function (req, res) {
     offerPrice,
     normalPrice,
     coupon,
+    affiliate,
     store,
     offerText,
     author
@@ -25,6 +26,9 @@ export default authenticated(async function (req, res) {
 
   const active = true;
   const createdAt = moment().format('YYYY/MM/DD HH:mm');
+  if (!affiliate) {
+    affiliate = 'SEM'
+  }
 
   await prisma.offer.create({
     data: {
@@ -36,6 +40,7 @@ export default authenticated(async function (req, res) {
       offerPrice,
       normalPrice,
       coupon,
+      affiliate,
       store,
       createdAt,
       offerText,

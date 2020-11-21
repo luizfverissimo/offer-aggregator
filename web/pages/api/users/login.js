@@ -32,7 +32,7 @@ export default async function (req, res) {
     return;
   }
 
-  const information = { id: user.id, name: user.name };
+  const information = { id: user.id, name: user.name, role: user.role };
 
   const authToken = await jwt.sign(information, process.env.JWT_SECRET, {
     expiresIn: '1day'
@@ -45,7 +45,8 @@ export default async function (req, res) {
     user: {
       id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      role: user.role
     }
   });
   return;

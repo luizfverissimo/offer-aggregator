@@ -3,20 +3,32 @@ import Head from 'next/head';
 
 import DashboardMenu from '../components/DashboardMenu';
 import Modal from '../components/Modal';
+import Pagination from '../components/Pagination';
 
 import styles from '../styles/dashboard-suggestions.module.css';
 import ActionButtons from '../components/ActionButtons';
 import api from '../services/api';
+import NProgress from 'nprogress';
+
 
 function DashboardSuggestions() {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteSuggestionId, setDeleteSuggestionId] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [showNextButton, setShowNextButton] = useState(true)
+  const [showPrevButton, setShowPrevButton] = useState(false)
+  const [initialSuggestionId, setInitialSuggestionId] = useState(0)
 
   const fetchSuggestions = async () => {
-    const res = await api.get('/suggestions/index-suggestions');
+    const rows = 10
+    const res = await api.get(`/suggestions/index-suggestions?rows=${rows}`);
     const suggestionsRes = await res.data;
     setSuggestions(suggestionsRes)
+    setShowPrevButton(false)
+    if (suggestionsRes.length < 10) {
+      setShowNextButton(false)
+    }
+    setInitialSuggestionId(suggestionsRes[0].id)
     return ;
   };
 
@@ -29,6 +41,46 @@ function DashboardSuggestions() {
     setDeleteSuggestionId('');
     setIsOpen(false);
     fetchSuggestions();
+  };
+
+  const handlePagination = async (direction) => {
+    NProgress.start();
+    let suggestionsRes
+
+    if(direction === 'next') {
+      const index = suggestions.length - 1;
+      const rows = 10
+      const res = await api.get(
+        `/suggestions/index-suggestions?cursor=${suggestions[index].id}&rows=${rows}`
+      );
+      suggestionsRes = await res.data;
+
+      setShowPrevButton(true)
+
+      if (suggestionsRes.length < 10) {
+        setShowNextButton(false)
+      }
+    }
+
+    if (direction === 'prev') {
+      const rows = -10
+      const res = await api.get(
+        `/suggestions/index-suggestions?cursor=${suggestions[0].id}&rows=${rows}`
+      );
+      suggestionsRes = await res.data;
+
+      if (suggestionsRes.length === 10 ) {
+        setShowNextButton(true)
+      }
+
+      if (suggestionsRes[0].id === initialSuggestionId) {
+        setShowPrevButton(false)
+      }
+    }
+
+    setSuggestions(suggestionsRes)
+    NProgress.done();
+    return;
   };
 
   return (
@@ -87,6 +139,13 @@ function DashboardSuggestions() {
               })}
             </tbody>
           </table>
+
+          <Pagination
+            showNextButton={showNextButton}
+            showPrevButton={showPrevButton}
+            onClickNext={() => handlePagination('next')}
+            onClickPrev={() => handlePagination('prev')}
+          />
         </div>
       </div>
     </>

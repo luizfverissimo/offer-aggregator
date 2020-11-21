@@ -19,6 +19,7 @@ export default authenticated(async function (req, res) {
     offerPrice,
     normalPrice,
     coupon,
+    affiliate,
     store,
     offerText,
   } = await req.body;
@@ -37,6 +38,7 @@ export default authenticated(async function (req, res) {
       offerPrice,
       normalPrice,
       coupon,
+      affiliate,
       store,
       createdAt,
       offerText,

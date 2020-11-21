@@ -20,6 +20,8 @@ function CreateOffer() {
   const [offerText, setOfferText] = useState('');
   const [store, setStore] = useState('');
   const [author, setAuthor] = useState();
+  const [affiliateLinks, setAffiliateLinks] = useState([]);
+  const [affiliate, setAffiliate] = useState('SEM');
 
   const router = useRouter();
 
@@ -35,13 +37,21 @@ function CreateOffer() {
     setDescription(offer.description);
     setOfferPrice(priceWithDot(offer.offerPrice));
     setNormalPrice(priceWithDot(offer.normalPrice));
-    setCoupon(offer.coupon)
+    setCoupon(offer.coupon);
     setOfferText(offer.offerText);
     setStore(offer.store);
+    setAffiliate(offer.affiliate)
     return;
   };
 
+  const fetchAffiliates = async () => {
+    const res = await api.get(`/affiliates/index-affiliates`);
+    const affiliatesRes = await res.data;
+    setAffiliateLinks(affiliatesRes)
+  }
+
   useEffect(() => {
+    fetchAffiliates()
     setAuthor(user.id);
 
     const { id } = router.query;
@@ -85,6 +95,7 @@ function CreateOffer() {
         offerPrice: removeComma(offerPrice),
         normalPrice: removeComma(normalPrice),
         coupon,
+        affiliate,
         offerText,
         store: storeUppercase
       });
@@ -102,6 +113,7 @@ function CreateOffer() {
       offerPrice: removeComma(offerPrice),
       normalPrice: removeComma(normalPrice),
       coupon,
+      affiliate,
       offerText,
       store: storeUppercase,
       author
@@ -149,13 +161,28 @@ function CreateOffer() {
                 value={urlImage}
                 onChange={(e) => setUrlImage(e.target.value)}
               />
+            </div>
 
-              <label>Link do produto sem afiliados</label>
-              <input
-                type='text'
-                value={urlOffer}
-                onChange={(e) => setUrlOffer(e.target.value)}
-              />
+            <div className={styles.twoColumn}>
+              <div className={styles.container}>
+                <label>Link do produto sem afiliados</label>
+                <input
+                  type='text'
+                  value={urlOffer}
+                  onChange={(e) => setUrlOffer(e.target.value)}
+                />
+              </div>
+              <div className={styles.container}>
+                <label>Afiliado</label>
+                <select onChange={(e) => setAffiliate(e.target.value)} >
+                <option value='SEM'>SEM</option>
+                  {affiliateLinks.map((affiliateLink) => {
+                    return (
+                      <option key={affiliateLink.id} selected={Number(affiliate) === affiliateLink.id} value={affiliateLink.id}>{affiliateLink.store}</option>
+                    );
+                  })}
+                </select>
+              </div>
             </div>
 
             <div className={styles.twoColumn}>
