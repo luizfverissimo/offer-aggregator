@@ -6,6 +6,7 @@ function ActionButtons({
   isActive,
   suggestion,
   affiliate,
+  users,
   onClickActivity,
   onClickDelete,
   onClickEdit,
@@ -37,7 +38,15 @@ function ActionButtons({
         </>
       )}
 
-      {!affiliate && !suggestion ? (
+      {users && (
+        <>
+          <button type='button' onClick={onClickEdit}>
+            <img src={require('../../public/edit.svg')} />
+          </button>
+        </>
+      )}
+
+      {!affiliate && !suggestion && !users ? (
         <>
           <button type='button' onClick={onClickActivity}>
             <img

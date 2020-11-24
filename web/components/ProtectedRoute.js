@@ -6,8 +6,7 @@ import { AuthContext } from './AuthContext';
 const ProtectRoute = ({ children }) => {
   const router = useRouter();
   const { authenticated, authenticatedRoute } = useContext(AuthContext);
-  console.log(authenticated)
-
+  console.log(authenticated);
 
   const protectedPath = () => {
     switch (router.pathname) {
@@ -18,6 +17,9 @@ const ProtectRoute = ({ children }) => {
         return authenticatedRoute(children);
 
       case '/dashboard-offers':
+        return authenticatedRoute(children);
+
+      case '/dashboard-users':
         return authenticatedRoute(children);
 
       case '/create-offer':
@@ -34,9 +36,9 @@ const ProtectRoute = ({ children }) => {
 
       case '/redirect':
         return <>{children}</>;
-      
-        case '/loading':
-          return <>{children}</>;
+
+      case '/loading':
+        return <>{children}</>;
     }
   };
 

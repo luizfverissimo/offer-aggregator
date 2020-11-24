@@ -38,7 +38,7 @@ function Dashboard() {
             </Link>
           </li>
           <li className={router.pathname === '/dashboard-users' ? styles.selected : null}>
-            <Link href='#'>
+            <Link href='/dashboard-users'>
               <a>
                 <img src={require('../../public/user.svg')} />
                 <p>Gerenciar Usuários</p>
