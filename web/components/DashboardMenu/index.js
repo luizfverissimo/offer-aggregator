@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-
 import Link from 'next/link';
 import { AuthContext } from '../AuthContext';
-
-import styles from './dashboard-menu.module.css';
 import { useRouter } from 'next/router';
+
+import styles from './dashboard-menu.module.scss';
 
 function Dashboard() {
   const { handleLogout } = useContext(AuthContext);

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import NProgress from 'nprogress';
 
 import DashboardMenu from '../components/DashboardMenu';
 import Modal from '../components/Modal';
@@ -26,10 +24,8 @@ function DashboardAffiliates() {
 
   const { user } = JSON.parse(localStorage.getItem('userInfo'));
 
-  const router = useRouter();
-
   const fetchUsers = async () => {
-    const res = await api.get(`/users/index-users`);
+    const res = await api.get(`api/users/index-users`);
     const usersRes = await res.data;
     setUsers(usersRes);
     return;
@@ -54,7 +50,7 @@ function DashboardAffiliates() {
       return;
     }
 
-    const res = await api.post(`/users/signup`, {
+    const res = await api.post(`api/users/signup`, {
       name,
       email: emailLowerCase,
       password
@@ -78,7 +74,7 @@ function DashboardAffiliates() {
       }
 
       try {
-        const res = await api.put('/users/update-user', {
+        const res = await api.put('api/users/update-user', {
           email: user.email,
           password,
           newPassword
@@ -97,7 +93,7 @@ function DashboardAffiliates() {
     }
 
     try {
-      const res = await api.put('/users/update-user', {
+      const res = await api.put('api/users/update-user', {
         email: emailEditUser,
         newPassword,
         role

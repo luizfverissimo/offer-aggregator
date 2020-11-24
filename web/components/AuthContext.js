@@ -12,6 +12,7 @@ const Auth = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('')
   const router = useRouter();
 
   //Sempre que a página é atualizada ele armazena novamente os dados do usuário logado.
@@ -36,8 +37,9 @@ const Auth = ({ children }) => {
 
   //Realiza o requisição de login
   const handleLogin = async (email, password) => {
+    setError('')
     try {
-      const { data } = await api.post('/users/login', { email, password });
+      const { data } = await api.post('api/users/login', { email, password });
       console.log(data);
       setUser(data.user);
 
@@ -47,7 +49,7 @@ const Auth = ({ children }) => {
       router.push('/dashboard-offers');
     } catch (err) {
       setAuthenticated(false);
-      alert('E-mail ou senha inválido');
+      setError('Email ou senha inválidos.')
     }
   };
 
@@ -78,6 +80,7 @@ const Auth = ({ children }) => {
         authenticated,
         loading,
         user,
+        error,
         handleLogin,
         handleLogout,
         authenticatedRoute

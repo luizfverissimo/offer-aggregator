@@ -28,7 +28,7 @@ function CreateOffer() {
   const { user } = JSON.parse(localStorage.getItem('userInfo'));
 
   const fetchOffer = async (id) => {
-    const res = await api.get(`/offers/offer?id=${id}`);
+    const res = await api.get(`api/offers/offer?id=${id}`);
     const offer = await res.data;
 
     setName(offer.name);
@@ -45,7 +45,7 @@ function CreateOffer() {
   };
 
   const fetchAffiliates = async () => {
-    const res = await api.get(`/affiliates/index-affiliates`);
+    const res = await api.get(`api/affiliates/index-affiliates`);
     const affiliatesRes = await res.data;
     setAffiliateLinks(affiliatesRes)
   }
@@ -88,7 +88,7 @@ function CreateOffer() {
     
 
     if (offerId) {
-      const res = await api.put('/offers/update-offer', {
+      const res = await api.put('api/offers/update-offer', {
         id: offerId,
         name,
         urlImage,
@@ -108,7 +108,7 @@ function CreateOffer() {
       return;
     }
 
-    const res = await api.post('/offers/create-offer', {
+    const res = await api.post('api/offers/create-offer', {
       name,
       urlImage,
       urlOffer,

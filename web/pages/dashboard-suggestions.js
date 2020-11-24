@@ -21,7 +21,7 @@ function DashboardSuggestions() {
 
   const fetchSuggestions = async () => {
     const rows = 10
-    const res = await api.get(`/suggestions/index-suggestions?rows=${rows}`);
+    const res = await api.get(`api/suggestions/index-suggestions?rows=${rows}`);
     const suggestionsRes = await res.data;
     setSuggestions(suggestionsRes)
     setShowPrevButton(false)
@@ -37,7 +37,7 @@ function DashboardSuggestions() {
   }, []);
 
   const handleDeleteOffer = async () => {
-    const res = await api.delete(`/suggestions/delete-suggestion?id=${deleteSuggestionId}`);
+    const res = await api.delete(`api/suggestions/delete-suggestion?id=${deleteSuggestionId}`);
     setDeleteSuggestionId('');
     setIsOpen(false);
     fetchSuggestions();
@@ -51,7 +51,7 @@ function DashboardSuggestions() {
       const index = suggestions.length - 1;
       const rows = 10
       const res = await api.get(
-        `/suggestions/index-suggestions?cursor=${suggestions[index].id}&rows=${rows}`
+        `api/suggestions/index-suggestions?cursor=${suggestions[index].id}&rows=${rows}`
       );
       suggestionsRes = await res.data;
 
@@ -65,7 +65,7 @@ function DashboardSuggestions() {
     if (direction === 'prev') {
       const rows = -10
       const res = await api.get(
-        `/suggestions/index-suggestions?cursor=${suggestions[0].id}&rows=${rows}`
+        `api/suggestions/index-suggestions?cursor=${suggestions[0].id}&rows=${rows}`
       );
       suggestionsRes = await res.data;
 

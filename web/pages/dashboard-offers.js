@@ -24,7 +24,7 @@ function DashboardOffers() {
   const router = useRouter();
 
   const fetchOffers = async () => {
-    const res = await api.get(`/offers/index-offers?rows=${10}`);
+    const res = await api.get(`api/offers/index-offers?rows=${10}`);
     const offersRes = await res.data;
     setShowPrevButton(false)
     if (offersRes.length < 10) {
@@ -40,12 +40,12 @@ function DashboardOffers() {
   }, []);
 
   const handleActivityToggle = async (id) => {
-    const res = await api.put(`/offers/toggle-offer?id=${id}`);
+    const res = await api.put(`api/offers/toggle-offer?id=${id}`);
     fetchOffers();
   };
 
   const handleDeleteOffer = async () => {
-    const res = await api.delete(`/offers/delete-offer?id=${deleteOfferId}`);
+    const res = await api.delete(`api/offers/delete-offer?id=${deleteOfferId}`);
     setDeleteOfferId('');
     setIsOpen(false);
     fetchOffers();
@@ -59,7 +59,7 @@ function DashboardOffers() {
       const index = offers.length - 1;
       const rows = 10
       const res = await api.get(
-        `/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
+        `api/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
       );
       offersRes = await res.data;
 
@@ -73,7 +73,7 @@ function DashboardOffers() {
     if (direction === 'prev') {
       const rows = -10
       const res = await api.get(
-        `/offers/index-offers?cursor=${offers[0].id}&rows=${rows}`
+        `api/offers/index-offers?cursor=${offers[0].id}&rows=${rows}`
       );
       offersRes = await res.data;
 

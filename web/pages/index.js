@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -22,10 +21,11 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
 
   const router = useRouter();
+  const searchBar = useRef(null);
 
   const fetchOffers = async () => {
     NProgress.start();
-    const res = await api.get('/offers/index-offers?rows=10');
+    const res = await api.get('api/offers/index-offers?rows=10');
     const offersRes = await res.data;
     setOffers(offersRes);
     NProgress.done();
@@ -48,7 +48,7 @@ export default function Home() {
       validatedUrl = `http://${offerLink}`;
     }
 
-    const res = await api.post('/suggestions/create-suggestion', {
+    const res = await api.post('api/suggestions/create-suggestion', {
       offerLink: validatedUrl
     });
 
@@ -62,14 +62,14 @@ export default function Home() {
   const fetchSearchOffers = async (query) => {
     NProgress.start();
     if (query === '') {
-      const res = await api.get('/offers/index-offers?rows=10');
+      const res = await api.get('api/offers/index-offers?rows=10');
       const offersRes = await res.data;
       setOffers(offersRes);
       NProgress.done();
       return;
     }
 
-    const res = await api.get(`/offers/search-offers?search=${query}`);
+    const res = await api.get(`api/offers/search-offers?search=${query}`);
     const offersRes = await res.data;
     setOffers(offersRes);
     NProgress.done();
@@ -101,9 +101,9 @@ export default function Home() {
   const handleNextOffers = async () => {
     NProgress.start();
     const index = offers.length - 1;
-    const rows = 10
+    const rows = 10;
     const res = await api.get(
-      `/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
+      `api/offers/index-offers?cursor=${offers[index].id}&rows=${rows}`
     );
     const offersRes = await res.data;
     const increaseOffers = offers.concat(offersRes);
@@ -119,10 +119,18 @@ export default function Home() {
   };
 
   const urlAffiliateConstructor = (urlOffer, affiliateLink) => {
-    console.log('foi?')
-    const completeUrl = urlOffer.concat(affiliateLink)
-    return completeUrl
-  }
+    const completeUrl = urlOffer.concat(affiliateLink);
+    return completeUrl;
+  };
+
+  const showSearchBar = () => {
+    if (searchBar.current.style.display === 'none') {
+      searchBar.current.style.display = 'inline'
+    } else {
+      searchBar.current.style.display = 'none'
+    }
+    
+  };
 
   return (
     <>
@@ -153,11 +161,30 @@ export default function Home() {
         <div className={styles.header}>
           <div className={styles.headerContent}>
             <img
+              className={styles.logo}
               src={require('../public/logo.svg')}
               alt='Super Oferta do Dia - Logo'
             />
+            <div className={styles.mobileButtons}>
+              <a className={styles.button} onClick={showSearchBar}>
+                <img
+                  src={require('../public/lupa.svg')}
+                  width={24}
+                  height={24}
+                />
+              </a>
+
+              <a className={styles.button} onClick={() => setIsOpen(true)}>
+                <img
+                  src={require('../public/price-tag.svg')}
+                  width={24}
+                  height={24}
+                />
+              </a>
+            </div>
 
             <input
+              ref={searchBar}
               type='text'
               placeholder='🔎 Pesquise por um produto'
               value={searchQuery}
@@ -197,7 +224,10 @@ export default function Home() {
         >
           <section className={styles.pageContent}>
             {offers.map((offer, index) => {
-              const completeUrl = urlAffiliateConstructor(offer.urlOffer, offer.affiliate.affiliateLink)
+              const completeUrl = urlAffiliateConstructor(
+                offer.urlOffer,
+                offer.affiliate.affiliateLink
+              );
               return (
                 <Card
                   key={index}
@@ -212,7 +242,6 @@ export default function Home() {
                   store={offer.store}
                   author={offer.author.name}
                   createdAt={offer.createdAt}
-                  
                 />
               );
             })}

@@ -16,7 +16,7 @@ function CreateAffiliate() {
   const router = useRouter();
 
   const fetchAffiliate = async (id) => {
-    const res = await api.get(`/affiliates/affiliate?id=${id}`);
+    const res = await api.get(`api/affiliates/affiliate?id=${id}`);
     const affiliate = await res.data;
 
     setAffiliateId(affiliate.id)
@@ -44,7 +44,7 @@ function CreateAffiliate() {
     const storeUppercase = store.toUpperCase();  
 
     if (affiliateId) {
-      const res = await api.put('/affiliates/update-affiliate', {
+      const res = await api.put('api/affiliates/update-affiliate', {
         id: affiliateId,
         store: storeUppercase,
         affiliateLink
@@ -55,7 +55,7 @@ function CreateAffiliate() {
       return;
     }
 
-    const res = await api.post('/affiliates/create-affiliate', {
+    const res = await api.post('api/affiliates/create-affiliate', {
       store: storeUppercase,
       affiliateLink
     });

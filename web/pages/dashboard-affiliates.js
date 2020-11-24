@@ -18,7 +18,7 @@ function DashboardAffiliates() {
   const router = useRouter();
 
   const fetchAffiliates = async () => {
-    const res = await api.get(`/affiliates/index-affiliates`);
+    const res = await api.get(`api/affiliates/index-affiliates`);
     const affiliatesRes = await res.data;
     setAffiliates(affiliatesRes);
     return;
@@ -30,7 +30,7 @@ function DashboardAffiliates() {
 
   const handleDeleteOffer = async () => {
     const res = await api.delete(
-      `/affiliates/delete-affiliate?id=${deleteAffiliateId}`
+      `api/affiliates/delete-affiliate?id=${deleteAffiliateId}`
     );
     setDeleteAffiliateId('');
     setIsOpen(false);

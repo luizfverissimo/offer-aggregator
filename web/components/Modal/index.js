@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-
-import api from '../../services/api';
+import React from 'react';
 
 import styles from './styles.module.css';
 

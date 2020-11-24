@@ -8,16 +8,16 @@ import { AuthContext } from '../components/AuthContext';
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
 
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, error } = useContext(AuthContext);
 
   async function handleLoginSubmit(e) {
     e.preventDefault();
 
     const regExEmailValidation = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
     if (!regExEmailValidation.test(email)) {
-      setError('Digite um e-mail válido.');
+      setErrorEmail('Digite um e-mail válido.');
       return;
     }
 
@@ -55,7 +55,7 @@ export default function AdminLogin() {
             onChange={(e) => setPassword(e.target.value)}
           ></input>
 
-          <div className={styles.errorContainer}>{error}</div>
+          <div className={styles.errorContainer}>{error} {errorEmail}</div>
 
           <button type='submit' onClick={(e) => handleLoginSubmit(e)}>
             Entrar
