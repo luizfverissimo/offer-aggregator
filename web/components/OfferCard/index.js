@@ -87,7 +87,8 @@ export default function Card({
           </button>
         </Modal>
       )}
-
+      
+      
       <div className={styles.card}>
         <div className={styles.storeTag}>{store}</div>
         <div className={styles.cardImageContainer}>
