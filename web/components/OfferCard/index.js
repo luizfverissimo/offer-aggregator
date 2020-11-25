@@ -92,7 +92,7 @@ export default function Card({
         <div className={styles.storeTag}>{store}</div>
         <div className={styles.cardImageContainer}>
           <a href={urlOffer} target='_blank'>
-            <img className={offerNotActiveImage} src={urlImage} />
+            <img className={offerNotActiveImage} src={urlImage} alt={name}/>
           </a>
         </div>
         <h3 className={styles.cardTitle}>{name}</h3>
