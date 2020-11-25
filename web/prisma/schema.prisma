@@ -1,53 +1,52 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "sqlite"
   url      = "file:./database.db"
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Offer {
-  id Int @id @default(autoincrement())
-  active Boolean
-  name String
-  urlImage String
-  urlOffer String
+  id          Int           @id @default(autoincrement())
+  active      Boolean
+  name        String
+  urlImage    String
+  urlOffer    String
   description String
-  offerPrice Int
+  offerPrice  Int
   normalPrice Int
-  offerText String
-  store String
-  coupon String @default("SEM")
-  affiliateId Int @default(4)
-  affiliate AffiliateLink @relation(fields: [affiliateId], references: [id])
-  createdAt String
-  createdAtDb DateTime @default(now())
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  offerText   String
+  store       String
+  createdAt   String
+  authorId    Int
+  createdAtDb DateTime      @default(now())
+  coupon      String        @default("SEM")
+  affiliateId Int           @default(4)
+  affiliate   AffiliateLink @relation(fields: [affiliateId], references: [id])
+  author      User          @relation(fields: [authorId], references: [id])
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  role String @default("USER")
-  password String
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  role        String   @default("USER")
+  password    String
   createdAtDb DateTime @default(now())
+  Offer       Offer[]
 }
 
 model OfferSuggestion {
-  id Int @id @default(autoincrement())
-  offerLink String
+  id          Int      @id @default(autoincrement())
+  offerLink   String
   createdAtDb DateTime @default(now())
-  createdAt String
+  createdAt   String
 }
 
 model AffiliateLink {
-  id Int @id @default(autoincrement())
-  store String
+  id            Int     @id @default(autoincrement())
+  store         String
   affiliateLink String
+  Offer         Offer[]
 }
