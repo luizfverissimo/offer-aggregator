@@ -453,11 +453,11 @@ export declare const OfferDistinctFieldEnum: {
   normalPrice: 'normalPrice',
   offerText: 'offerText',
   store: 'store',
-  coupon: 'coupon',
-  affiliateId: 'affiliateId',
   createdAt: 'createdAt',
+  authorId: 'authorId',
   createdAtDb: 'createdAtDb',
-  authorId: 'authorId'
+  coupon: 'coupon',
+  affiliateId: 'affiliateId'
 };
 
 export declare type OfferDistinctFieldEnum = (typeof OfferDistinctFieldEnum)[keyof typeof OfferDistinctFieldEnum]
@@ -502,6 +502,14 @@ export declare const SortOrder: {
 export declare type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export declare const QueryMode: {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+export declare type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
 
 /**
  * Model Offer
@@ -518,11 +526,11 @@ export type Offer = {
   normalPrice: number
   offerText: string
   store: string
+  createdAt: string
+  authorId: number
+  createdAtDb: Date
   coupon: string
   affiliateId: number
-  createdAt: string
-  createdAtDb: Date
-  authorId: number
 }
 
 
@@ -538,32 +546,32 @@ export type OfferAvgAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
-  affiliateId: number
   authorId: number
+  affiliateId: number
 }
 
 export type OfferSumAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
-  affiliateId: number
   authorId: number
+  affiliateId: number
 }
 
 export type OfferMinAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
-  affiliateId: number
   authorId: number
+  affiliateId: number
 }
 
 export type OfferMaxAggregateOutputType = {
   id: number
   offerPrice: number
   normalPrice: number
-  affiliateId: number
   authorId: number
+  affiliateId: number
 }
 
 
@@ -571,32 +579,32 @@ export type OfferAvgAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
-  affiliateId?: true
   authorId?: true
+  affiliateId?: true
 }
 
 export type OfferSumAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
-  affiliateId?: true
   authorId?: true
+  affiliateId?: true
 }
 
 export type OfferMinAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
-  affiliateId?: true
   authorId?: true
+  affiliateId?: true
 }
 
 export type OfferMaxAggregateInputType = {
   id?: true
   offerPrice?: true
   normalPrice?: true
-  affiliateId?: true
   authorId?: true
+  affiliateId?: true
 }
 
 export type AggregateOfferArgs = {
@@ -634,13 +642,13 @@ export type OfferSelect = {
   normalPrice?: boolean
   offerText?: boolean
   store?: boolean
+  createdAt?: boolean
+  authorId?: boolean
+  createdAtDb?: boolean
   coupon?: boolean
   affiliateId?: boolean
   affiliate?: boolean | AffiliateLinkArgs
-  createdAt?: boolean
-  createdAtDb?: boolean
   author?: boolean | UserArgs
-  authorId?: boolean
 }
 
 export type OfferInclude = {
@@ -2627,13 +2635,13 @@ export type OfferWhereInput = {
   normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
+  createdAt?: StringFilter | string
+  authorId?: IntFilter | number
+  createdAtDb?: DateTimeFilter | Date | string
   coupon?: StringFilter | string
   affiliateId?: IntFilter | number
   affiliate?: AffiliateLinkRelationFilter | AffiliateLinkWhereInput
-  createdAt?: StringFilter | string
-  createdAtDb?: DateTimeFilter | Date | string
   author?: UserRelationFilter | UserWhereInput
-  authorId?: IntFilter | number
 }
 
 export type OfferOrderByInput = {
@@ -2647,11 +2655,11 @@ export type OfferOrderByInput = {
   normalPrice?: SortOrder
   offerText?: SortOrder
   store?: SortOrder
+  createdAt?: SortOrder
+  authorId?: SortOrder
+  createdAtDb?: SortOrder
   coupon?: SortOrder
   affiliateId?: SortOrder
-  createdAt?: SortOrder
-  createdAtDb?: SortOrder
-  authorId?: SortOrder
 }
 
 export type OfferWhereUniqueInput = {
@@ -2736,9 +2744,9 @@ export type OfferCreateInput = {
   normalPrice: number
   offerText: string
   store: string
-  coupon?: string
   createdAt: string
   createdAtDb?: Date | string
+  coupon?: string
   affiliate?: AffiliateLinkCreateOneWithoutOfferInput
   author: UserCreateOneWithoutOfferInput
 }
@@ -2753,9 +2761,9 @@ export type OfferUpdateInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
-  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   affiliate?: AffiliateLinkUpdateOneRequiredWithoutOfferInput
   author?: UserUpdateOneRequiredWithoutOfferInput
 }
@@ -2770,9 +2778,9 @@ export type OfferUpdateManyMutationInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
-  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
 }
 
 export type UserCreateInput = {
@@ -2863,12 +2871,8 @@ export type StringFilter = {
   contains?: string
   startsWith?: string
   endsWith?: string
+  mode?: QueryMode
   not?: string | NestedStringFilter
-}
-
-export type AffiliateLinkRelationFilter = {
-  is?: AffiliateLinkWhereInput
-  isNot?: AffiliateLinkWhereInput
 }
 
 export type DateTimeFilter = {
@@ -2880,6 +2884,11 @@ export type DateTimeFilter = {
   gt?: Date | string
   gte?: Date | string
   not?: Date | string | NestedDateTimeFilter
+}
+
+export type AffiliateLinkRelationFilter = {
+  is?: AffiliateLinkWhereInput
+  isNot?: AffiliateLinkWhereInput
 }
 
 export type UserRelationFilter = {
@@ -3058,9 +3067,9 @@ export type OfferCreateWithoutAuthorInput = {
   normalPrice: number
   offerText: string
   store: string
-  coupon?: string
   createdAt: string
   createdAtDb?: Date | string
+  coupon?: string
   affiliate?: AffiliateLinkCreateOneWithoutOfferInput
 }
 
@@ -3088,11 +3097,11 @@ export type OfferScalarWhereInput = {
   normalPrice?: IntFilter | number
   offerText?: StringFilter | string
   store?: StringFilter | string
+  createdAt?: StringFilter | string
+  authorId?: IntFilter | number
+  createdAtDb?: DateTimeFilter | Date | string
   coupon?: StringFilter | string
   affiliateId?: IntFilter | number
-  createdAt?: StringFilter | string
-  createdAtDb?: DateTimeFilter | Date | string
-  authorId?: IntFilter | number
 }
 
 export type OfferUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -3111,9 +3120,9 @@ export type OfferCreateWithoutAffiliateInput = {
   normalPrice: number
   offerText: string
   store: string
-  coupon?: string
   createdAt: string
   createdAtDb?: Date | string
+  coupon?: string
   author: UserCreateOneWithoutOfferInput
 }
 
@@ -3138,9 +3147,9 @@ export type OfferUpdateWithoutAuthorDataInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
-  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   affiliate?: AffiliateLinkUpdateOneRequiredWithoutOfferInput
 }
 
@@ -3154,9 +3163,9 @@ export type OfferUpdateManyDataInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
-  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
 }
 
 export type OfferUpdateWithoutAffiliateDataInput = {
@@ -3169,9 +3178,9 @@ export type OfferUpdateWithoutAffiliateDataInput = {
   normalPrice?: number | IntFieldUpdateOperationsInput
   offerText?: string | StringFieldUpdateOperationsInput
   store?: string | StringFieldUpdateOperationsInput
-  coupon?: string | StringFieldUpdateOperationsInput
   createdAt?: string | StringFieldUpdateOperationsInput
   createdAtDb?: Date | string | DateTimeFieldUpdateOperationsInput
+  coupon?: string | StringFieldUpdateOperationsInput
   author?: UserUpdateOneRequiredWithoutOfferInput
 }
 
