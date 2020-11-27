@@ -21,7 +21,7 @@ function CreateOffer() {
   const [store, setStore] = useState('');
   const [author, setAuthor] = useState();
   const [affiliateLinks, setAffiliateLinks] = useState([]);
-  const [affiliate, setAffiliate] = useState('SEM');
+  const [affiliate, setAffiliate] = useState(1);
 
   const router = useRouter();
 
