@@ -15,12 +15,13 @@ const searchOffers = async (req, res) => {
     where: {
       name: {
         contains: search,
+        mode: 'insensitive'
       }
     },
     include: {
       author: {
         select: {
-          name: true
+          name: true,
         }
       },
       affiliate: {

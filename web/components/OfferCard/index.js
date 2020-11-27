@@ -33,7 +33,8 @@ export default function Card({
   });
 
   moment.locale('pt-BR');
-  const createdFromNow = moment(createdAt, 'YYYY/MM/DD HH:mm').fromNow();
+  const createdWithoutTimeDiference = moment(createdAt, 'YYYY/MM/DD HH:mm').subtract(3, 'hours')
+  const createdFromNow = moment(createdWithoutTimeDiference, 'YYYY/MM/DD HH:mm').fromNow();
 
   const handleGoToStore = (href, coupon) => {
     if (coupon !== 'SEM') {
