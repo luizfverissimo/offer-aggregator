@@ -10,17 +10,25 @@ export default authenticated(async function (req, res) {
     return res;
   }
 
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      password: false
-    },
-    orderBy: { id: 'asc' }
-  });
-  res.statusCode = 200;
-  res.json(users);
-  return res;
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        password: false
+      },
+      orderBy: { id: 'asc' }
+    });
+    res.statusCode = 200;
+    res.json(users);
+    return res;
+
+  }catch(err) {
+    res.statusCode = 500
+    res.json({message: 'Internal Error'})
+    console.log(err)
+    return res
+  }
 });
