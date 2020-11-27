@@ -1,10 +1,14 @@
 {
   "env": {
-    "DATABASE_URL": "@DATABASE_URL"
+    "DATABASE_URL": "@database-url-production-q7hy",
+    "JWT_SECRET": "@jwt-secret-production-dib3",
+    "BASE_URL": "@base-url-production-l5qy"
   },
   "build": {
     "env": {
-      "DATABASE_URL": "@DATABASE_URL"
+      "DATABASE_URL": "@database-url-production-q7hy",
+      "JWT_SECRET": "@jwt-secret-production-dib3",
+      "BASE_URL": "@base-url-production-l5qy"
     }
   }
 }
