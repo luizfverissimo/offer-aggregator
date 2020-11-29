@@ -73,7 +73,7 @@ function CreateOffer() {
       offerText.length === 0 ||
       store.length === 0
     ) {
-      alert('Você precisa preencher todos os campos!');
+      alert('You need to fill all inputs!');
       return;
     }
 
@@ -103,7 +103,7 @@ function CreateOffer() {
         author
       });
 
-      alert('Oferta atualizada com sucesso!');
+      alert('Offer successfully updated!');
       router.back();
       return;
     }
@@ -122,7 +122,7 @@ function CreateOffer() {
       author
     });
 
-    alert('Oferta criada com sucesso!');
+    alert('Offer successfully created!');
     router.back();
   };
 
@@ -138,27 +138,27 @@ function CreateOffer() {
         <Dashboard />
         <div className={styles.createOfferContent}>
           <div className={styles.headerContainer}>
-            <h1>Nova Oferta</h1>
+            <h1>New Offer</h1>
             <button
               type='button'
               className={styles.newOfferButton}
               onClick={handleCreateOffer}
             >
-              SALVAR
+              SAVE
             </button>
           </div>
 
           <form>
-            <p>*Todos os campos são obrigatórios</p>
+            <p>*All fields are required </p>
             <div className={styles.oneColumn}>
-              <label>Nome do produto</label>
+              <label>Product Name</label>
               <input
                 type='text'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
 
-              <label>Link da imagem</label>
+              <label>Image Link</label>
               <input
                 type='text'
                 value={urlImage}
@@ -168,7 +168,7 @@ function CreateOffer() {
 
             <div className={styles.twoColumn}>
               <div className={styles.container}>
-                <label>Link do produto sem afiliados</label>
+                <label>Product Link without affiliates</label>
                 <input
                   type='text'
                   value={urlOffer}
@@ -176,7 +176,7 @@ function CreateOffer() {
                 />
               </div>
               <div className={styles.container}>
-                <label>Afiliado</label>
+                <label>Affiliate</label>
                 <select value={affiliate} onChange={(e) => setAffiliate(e.target.value)} >
                   {affiliateLinks.map((affiliateLink) => {
                     return (
@@ -189,7 +189,7 @@ function CreateOffer() {
 
             <div className={styles.twoColumn}>
               <div className={styles.container}>
-                <label>Descrição da oferta</label>
+                <label>Offers Description</label>
                 <textarea
                   type='text'
                   value={description}
@@ -197,7 +197,7 @@ function CreateOffer() {
                 />
               </div>
               <div className={styles.container}>
-                <label>CUPOM</label>
+                <label>COUPON</label>
                 <input
                   type='text'
                   value={coupon}
@@ -208,7 +208,7 @@ function CreateOffer() {
 
             <div className={styles.twoColumn}>
               <div className={styles.container}>
-                <label>Preço na promoção</label>
+                <label>Offer price</label>
                 <input
                   type='number'
                   value={offerPrice}
@@ -217,7 +217,7 @@ function CreateOffer() {
               </div>
 
               <div className={styles.container}>
-                <label>Preço antes</label>
+                <label>Normal price</label>
                 <input
                   type='number'
                   value={normalPrice}
@@ -227,7 +227,7 @@ function CreateOffer() {
             </div>
             <div className={styles.twoColumn}>
               <div className={styles.container}>
-                <label>Texto da oferta</label>
+                <label>Offer text</label>
                 <input
                   type='text'
                   value={offerText}
@@ -235,7 +235,7 @@ function CreateOffer() {
                 />
               </div>
               <div className={styles.container}>
-                <label>Loja</label>
+                <label>Store</label>
                 <input
                   type='text'
                   value={store}

@@ -40,20 +40,20 @@ function DashboardAffiliates() {
   return (
     <>
       <Head>
-        <title>Gerenciamento de link de afiliados - Super Oferta do Dia</title>
+        <title>Affiliate Links Management - Super Oferta do Dia</title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
 
       {isOpen && (
         <Modal onClickCloseModal={() => setIsOpen(false)}>
-          <h2>Deseja excluir a sugestão?</h2>
+          <h2>Delete affiliate link?</h2>
           <div className={styles.modalButtonContainer}>
             <button type='button' onClick={handleDeleteOffer}>
-              SIM
+              YES
             </button>
             <button type='button' onClick={() => setIsOpen(false)}>
-              NÃO
+              NO
             </button>
           </div>
         </Modal>
@@ -62,22 +62,22 @@ function DashboardAffiliates() {
       <div className={styles.content}>
         <DashboardMenu />
         <div className={styles.offersContent}>
-          <h1>Gerenciamento de Links de Afiliados</h1>
+          <h1>Affiliate Links Management</h1>
           <button
             type='button'
             className={styles.newOfferButton}
             onClick={() => router.push('/create-affiliate')}
           >
-            NOVO LINK
+            NEW LINK
           </button>
 
           <table className={styles.table}>
             <thead>
               <tr className={styles.tableHeader}>
                 <th style={{ width: 50 }}>id</th>
-                <th>Afiliado</th>
+                <th>Affiliate</th>
                 <th>Link</th>
-                <th style={{ width: 80 }}>Ações</th>
+                <th style={{ width: 80 }}>Actions</th>
               </tr>
             </thead>
             <tbody>

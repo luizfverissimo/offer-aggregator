@@ -24,7 +24,7 @@ function Dashboard() {
             <Link href='/dashboard-suggestions'>
               <a>
                 <img src={require('../../public/suggestion.svg')} />
-                <p>Sugestões de Ofertas</p>
+                <p>Offers suggestions</p>
               </a>
             </Link>
           </li>
@@ -32,7 +32,7 @@ function Dashboard() {
             <Link href='/dashboard-offers'>
               <a>
                 <img src={require('../../public/price-tag.svg')} />
-                <p>Gerenciar ofertas</p>
+                <p>Offers Management</p>
               </a>
             </Link>
           </li>
@@ -40,7 +40,7 @@ function Dashboard() {
             <Link href='/dashboard-users'>
               <a>
                 <img src={require('../../public/user.svg')} />
-                <p>Gerenciar Usuários</p>
+                <p>Users Management</p>
               </a>
             </Link>
           </li>
@@ -48,7 +48,7 @@ function Dashboard() {
             <Link href='/dashboard-affiliates'>
               <a>
                 <img src={require('../../public/link.svg')} />
-                <p>Gerenciar Links de Afiliados</p>
+                <p>Affiliate Link Management</p>
               </a>
             </Link>
           </li>

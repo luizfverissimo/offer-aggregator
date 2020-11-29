@@ -5,7 +5,7 @@ function Loading() {
 
   return (
     <div className={styles.content}>
-      <h1>Carregando...</h1>
+      <h1>Loading...</h1>
     </div>
   );
 }

@@ -94,20 +94,20 @@ function DashboardOffers() {
   return (
     <>
       <Head>
-        <title>Super Oferta do Dia - ADMIN Dashboard</title>
+        <title>Offers Management - Super Oferta do Dia</title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
 
       {isOpen && (
         <Modal onClickCloseModal={() => setIsOpen(false)}>
-          <h2>Deseja excluir a oferta?</h2>
+          <h2>Delete this offer?</h2>
           <div className={styles.modalButtonContainer}>
             <button type='button' onClick={handleDeleteOffer}>
-              SIM
+              YES
             </button>
             <button type='button' onClick={() => setIsOpen(false)}>
-              NÃO
+              NO
             </button>
           </div>
         </Modal>
@@ -116,23 +116,23 @@ function DashboardOffers() {
       <div className={styles.content}>
         <DashboardMenu />
         <div className={styles.offersContent}>
-          <h1>Gerenciamento de Ofertas</h1>
+          <h1>Offers Management</h1>
           <button
             type='button'
             className={styles.newOfferButton}
             onClick={() => router.push('/create-offer')}
           >
-            NOVA OFERTA
+            NEW OFFER
           </button>
 
           <table className={styles.table}>
             <thead>
               <tr className={styles.tableHeader}>
                 <th style={{ width: 50 }}>id</th>
-                <th style={{ width: 450 }}>Produto</th>
-                <th style={{ width: 150 }}>Loja</th>
+                <th style={{ width: 450 }}>Product</th>
+                <th style={{ width: 150 }}>Store</th>
                 <th style={{ width: 150 }}>Status</th>
-                <th style={{ width: 150 }}>Ações</th>
+                <th style={{ width: 150 }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -148,7 +148,7 @@ function DashboardOffers() {
                       style={{ width: 150 }}
                       className={offer.active ? styles.active : styles.inactive}
                     >
-                      {offer.active ? 'Ativa' : 'Inativa'}
+                      {offer.active ? 'Active' : 'Inactive'}
                     </td>
                     <td className={styles.actionContainer}>
                       <ActionButtons

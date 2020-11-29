@@ -11,9 +11,9 @@ function Pagination({
   return (
     <div className={styles.pagination}>
       {showPrevButton && (
-        <button onClick={onClickPrev}>&larr; Anterior </button>
+        <button onClick={onClickPrev}>&larr; Previous </button>
       )}
-      {showNextButton && <button onClick={onClickNext}> Próximo &rarr;</button>}
+      {showNextButton && <button onClick={onClickNext}> Next &rarr;</button>}
     </div>
   );
 }

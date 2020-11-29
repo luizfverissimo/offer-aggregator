@@ -39,7 +39,7 @@ export default function Home() {
     const regExUrlValidation = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
     //verifica se a url é válida
     if (!regExUrlValidation.test(offerLink)) {
-      alert('Adicione uma URL válida!');
+      alert('Type a valid URL!');
       return;
     }
     let validatedUrl = offerLink;
@@ -55,7 +55,7 @@ export default function Home() {
     setIsOpen(false);
     setOfferLink('');
     alert(
-      'Sua sugestão de promoção foi enviado com sucesso, agradecemos a sua colaboração!'
+      'Your suggestion was receivedm thank you for your help!'
     );
   }
 
@@ -136,7 +136,7 @@ export default function Home() {
     <>
       <Head>
         <title>
-          Super Oferta do Dia - Encontre a melhor oferta e economize muito
+          Super Oferta do Dia - Find the best offers and save money
         </title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
@@ -144,15 +144,15 @@ export default function Home() {
 
       {isOpen && (
         <Modal onClickCloseModal={() => setIsOpen(false)}>
-          <h2>Enviar Promoção</h2>
+          <h2>Send Offer</h2>
           <input
             type='text'
-            placeholder='Digite o link da promoção'
+            placeholder='Type the offer URL'
             value={offerLink}
             onChange={(e) => setOfferLink(e.target.value)}
           />
           <button type='button' onClick={submitOfferLinkHandler}>
-            Enviar
+            Send
           </button>
         </Modal>
       )}
@@ -186,7 +186,7 @@ export default function Home() {
             <input
               ref={searchBar}
               type='text'
-              placeholder='🔎 Pesquise por um produto'
+              placeholder='🔎 Search for an offer'
               value={searchQuery}
               onKeyUp={(e) => handleSearchEnter(e)}
               onChange={(e) => handleAutoSearch(e)}
@@ -198,7 +198,7 @@ export default function Home() {
                 width={24}
                 height={24}
               />{' '}
-              Enviar promoção
+              Send offer
             </a>
           </div>
         </div>
@@ -211,14 +211,14 @@ export default function Home() {
             <h3
               style={{ textAlign: 'center', color: 'var(--color-dark-blue)' }}
             >
-              Carregando mais ofertas especiais...
+              Loading more special offers...
             </h3>
           }
           endMessage={
             <h3
               style={{ textAlign: 'center', color: 'var(--color-dark-blue)' }}
             >
-              😭 Você já viu todas as ofertas
+              😭 You saw all the offers
             </h3>
           }
         >

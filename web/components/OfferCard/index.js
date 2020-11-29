@@ -32,7 +32,7 @@ export default function Card({
     [styles.inactiveBtn]: !active
   });
 
-  moment.locale('pt-BR');
+  moment.locale('en-US');
   const createdWithoutTimeDiference = moment(createdAt, 'YYYY/MM/DD HH:mm').subtract(3, 'hours')
   const createdFromNow = moment(createdWithoutTimeDiference, 'YYYY/MM/DD HH:mm').fromNow();
 
@@ -56,7 +56,7 @@ export default function Card({
     <>
       {isOpen && (
         <Modal onClickCloseModal={() => setIsOpen(false)}>
-          <h2>Use o código do cupom para obter o desconto.</h2>
+          <h2>Use the Coupon to get the discount.</h2>
           <textarea
             readOnly
             id='coupon'
@@ -84,7 +84,7 @@ export default function Card({
             type='button'
             onClick={() => copyToClipBoardAndNavigate(urlOffer, coupon)}
           >
-            Copiar e ir para à loja!
+            Copy and go to Store!
           </button>
         </Modal>
       )}
@@ -106,7 +106,7 @@ export default function Card({
           </h4>
           <p className={styles.cardPriceDescription}>{offerText}</p>
           <p className={styles.cardPriceSave}>
-            Economize R$ {priceWithComma(normalPrice - offerPrice)}!
+            Save R$ {priceWithComma(normalPrice - offerPrice)}!
           </p>
         </div>
 
@@ -115,13 +115,13 @@ export default function Card({
             className={offerNotActiveButton}
             onClick={() => handleGoToStore(urlOffer, coupon)}
           >
-            Ir à loja
+            Go to Store
           </a>
         </div>
 
         <footer>
           <p>
-            Por <span>{author}</span>
+            by <span>{author}</span>
           </p>
           <p>{createdFromNow}</p>
         </footer>

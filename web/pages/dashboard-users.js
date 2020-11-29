@@ -41,12 +41,12 @@ function DashboardAffiliates() {
     const emailLowerCase = email.toLocaleLowerCase();
 
     if (!regexEmail.test(emailLowerCase)) {
-      alert('Digite um email válido');
+      alert('Type a valid e-mail');
       return;
     }
 
     if (name.length === 0 || email.length === 0 || password.length === 0) {
-      alert('Você precisa preencher todos os campos!');
+      alert('You need to fill all inputs');
       return;
     }
 
@@ -56,7 +56,7 @@ function DashboardAffiliates() {
       password
     });
 
-    alert('Usuário Cadastrado com sucesso!');
+    alert('user successfully registered!');
     setIsOpen(false);
     setIsNewUser(false);
     fetchUsers();
@@ -69,7 +69,7 @@ function DashboardAffiliates() {
 
     if (user.role === 'USER') {
       if (user.id !== id) {
-        alert('Você pode editar somente o seu registro.');
+        alert('You can edit only your entry.');
         return;
       }
 
@@ -80,14 +80,14 @@ function DashboardAffiliates() {
           newPassword
         });
 
-        alert('Informações alteradas com sucesso!');
+        alert('Data successfully changed!');
         setIsOpen(false);
         setIsEdit(false);
         fetchUsers();
         return;
       } catch (err) {
         console.log(err);
-        alert('Informações inválidas. cod.01');
+        alert('Invalid credentials');
         return;
       }
     }
@@ -98,14 +98,14 @@ function DashboardAffiliates() {
         newPassword,
         role
       });
-      alert('Informações alteradas com sucesso!');
+      alert('Data successfully changed!');
       setIsOpen(false);
       setIsEdit(false);
       fetchUsers();
       return;
     } catch (err) {
       console.log(err);
-      alert('Informações inválidas. cod.02');
+      alert('Invalid credentials');
       return;
     }
   };
@@ -113,7 +113,7 @@ function DashboardAffiliates() {
   return (
     <>
       <Head>
-        <title>Gerenciamento de usuários - Super Oferta do Dia</title>
+        <title>User Management - Super Oferta do Dia</title>
         <link rel='icon' href='/favicon.ico' />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
       </Head>
@@ -122,10 +122,10 @@ function DashboardAffiliates() {
         <Modal onClickCloseModal={() => setIsOpen(false)}>
           {isNewUser && (
             <>
-              <h2>Cadastrar novo usuário</h2>
+              <h2>Sing Up a User</h2>
               <input
                 type='text'
-                placeholder='Nome'
+                placeholder='Name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -137,12 +137,12 @@ function DashboardAffiliates() {
               />
               <input
                 type='password'
-                placeholder='Senha - min. 8 caracteres'
+                placeholder='Password - min. 8 characters'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button type='button' onClick={handleUserSingUp}>
-                Cadastrar
+                Sing up
               </button>
             </>
           )}
@@ -152,7 +152,7 @@ function DashboardAffiliates() {
               {user.role !== 'ADMIN' && (
                 <input
                   type='password'
-                  placeholder='Senha antiga'
+                  placeholder='Old password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -160,7 +160,7 @@ function DashboardAffiliates() {
 
               <input
                 type='password'
-                placeholder='Nova senha'
+                placeholder='New password'
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
@@ -187,7 +187,7 @@ function DashboardAffiliates() {
       <div className={styles.content}>
         <DashboardMenu />
         <div className={styles.offersContent}>
-          <h1>Gerenciamento de usuários</h1>
+          <h1>Users Management</h1>
           <button
             type='button'
             className={styles.newOfferButton}
@@ -197,17 +197,17 @@ function DashboardAffiliates() {
               setIsEdit(false);
             }}
           >
-            NOVO USUÁRIO
+            NEW USER
           </button>
 
           <table className={styles.table}>
             <thead>
               <tr className={styles.tableHeader}>
                 <th style={{ width: 50 }}>id</th>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th>Permissão</th>
-                <th style={{ width: 80 }}>Ações</th>
+                <th>Permission</th>
+                <th style={{ width: 80 }}>Actions</th>
               </tr>
             </thead>
             <tbody>

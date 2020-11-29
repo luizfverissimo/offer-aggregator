@@ -17,7 +17,7 @@ export default function AdminLogin() {
 
     const regExEmailValidation = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
     if (!regExEmailValidation.test(email)) {
-      setErrorEmail('Digite um e-mail válido.');
+      setErrorEmail('Enter a valid e-mail.');
       return;
     }
 
@@ -41,14 +41,14 @@ export default function AdminLogin() {
         <img src={require('../public/logo.svg')} />
         <h1>ADMIN Dashboard</h1>
         <form>
-          <legend>Usuário</legend>
+          <legend>User</legend>
           <input
             type='text'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></input>
 
-          <legend>Senha</legend>
+          <legend>Password</legend>
           <input
             type='password'
             value={password}
@@ -58,7 +58,7 @@ export default function AdminLogin() {
           <div className={styles.errorContainer}>{error} {errorEmail}</div>
 
           <button type='submit' onClick={(e) => handleLoginSubmit(e)}>
-            Entrar
+            Login
           </button>
         </form>
       </div>

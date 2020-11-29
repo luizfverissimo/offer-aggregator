@@ -37,7 +37,7 @@ function CreateAffiliate() {
       affiliateLink.length === 0 ||
       store.length === 0
     ) {
-      alert('Você precisa preencher todos os campos!');
+      alert('All field are required!');
       return;
     }
 
@@ -50,7 +50,7 @@ function CreateAffiliate() {
         affiliateLink
       });
 
-      alert('Afiliado atualizado com sucesso!');
+      alert('Affiliate successfully updated!');
       router.back();
       return;
     }
@@ -60,7 +60,7 @@ function CreateAffiliate() {
       affiliateLink
     });
 
-    alert('Afiliado criado com sucesso!');
+    alert('Affiliate successfully created!');
     router.back();
   };
 
@@ -76,33 +76,33 @@ function CreateAffiliate() {
         <Dashboard />
         <div className={styles.createOfferContent}>
           <div className={styles.headerContainer}>
-            <h1>Novo Afiliado</h1>
+            <h1>New Affiliate</h1>
             <button
               type='button'
               className={styles.newOfferButton}
               onClick={handleCreateOffer}
             >
-              SALVAR
+              SAVE
             </button>
           </div>
 
           <form>
-            <p>*Todos os campos são obrigatórios</p>
+            <p>*All fields are required</p>
             <div className={styles.oneColumn}>
-              <label>Nome do Afiliado</label>
+              <label>Affiliate name</label>
               <input
                 type='text'
                 value={store}
                 onChange={(e) => setStore(e.target.value)}
               />
 
-              <label>Link do afiliado</label>
+              <label>Affiliate link</label>
               <input
                 type='text'
                 value={affiliateLink}
                 onChange={(e) => setAffiliateLink(e.target.value)}
               />
-              <p>Este é o link que irá após o link da oferta.</p>
+              <p>This is the link that will be after the product link.</p>
             </div>
 
           </form>
