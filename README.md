@@ -1,8 +1,7 @@
 <img src="https://github.com/luizfverissimo/luizfverissimo/blob/master/lf_verissimo_logo_light.png?raw=true" alt="imagem-rpgdiscordbot-1" width="200"/>
 
 # Offers Aggregator 💸
-<img align="center" alt="React" src="https://img.shields.io/badge/-React-2E2D2E?style=flat-square&labelColor=FD3A69&logo=react&logoColor=white" />
-<img align="center" alt="Node.js" src="https://img.shields.io/badge/-Node.js-2E2D2E?style=flat-square&labelColor=FD3A69&logo=node.js&logoColor=white" /> <img align="center" alt="Next.js" src="https://img.shields.io/badge/-Next.js-2E2D2E?style=flat-square&labelColor=FD3A69&logo=next.js&logoColor=white" /></br></br>
+<img align="center" alt="React" src="https://img.shields.io/badge/-React-2E2D2E?style=flat-square&labelColor=FD3A69&logo=react&logoColor=white" /><img align="center" alt="Node.js" src="https://img.shields.io/badge/-Node.js-2E2D2E?style=flat-square&labelColor=FD3A69&logo=node.js&logoColor=white" /><img align="center" alt="Next.js" src="https://img.shields.io/badge/-Next.js-2E2D2E?style=flat-square&labelColor=FD3A69&logo=next.js&logoColor=white" /></br></br>
 FullStack application of an Offers/Deal/Coupons Aggregator, created with *React* with *Next.js*.
 </br>
 
