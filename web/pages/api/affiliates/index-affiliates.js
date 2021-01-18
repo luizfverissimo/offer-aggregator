@@ -14,6 +14,7 @@ export default authenticated(async function (req, res) {
     orderBy: { id: 'desc' }
   });
   res.statusCode = 200;
+  res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate');
   res.json(offers);
   return res;
 });
