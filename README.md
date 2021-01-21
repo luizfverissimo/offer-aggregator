@@ -12,6 +12,6 @@ FullStack application of an Offers/Deal/Coupons Aggregator, created with *React*
 To access the ADMIN dashboard, [click here](https://offers-aggregator-git-internationalization.luizfverissimo.vercel.app/admin) - login: user@test.com, password: 12345678
 
 #### [Clique aqui para a versão em pt-BR](https://offers-aggregator.vercel.app)
-Para acessar o ADMIN dashboard, [clique aqui](ttps://offers-aggregator.vercel.app/admin) - login: user@test.com, password: 12345678
+Para acessar o ADMIN dashboard, [clique aqui](https://offers-aggregator.vercel.app/admin) - login: user@test.com, password: 12345678
 
  
