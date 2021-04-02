@@ -142,7 +142,7 @@ const config = {
     },
     "name": "photon",
     "provider": "prisma-client-js",
-    "output": "E:\\Meus Projetos\\offer-agregattor\\web\\Prisma\\Studio\\-Meus Projetos-offer-agregattor-web",
+    "output": "D:\\Meus Projetos\\offer-agregattor\\web\\Prisma\\Studio\\-Meus Projetos-offer-agregattor-web",
     "isCustomOutput": true
   },
   "sqliteDatasourceOverrides": [],

@@ -29,6 +29,7 @@ export default async function (req, res) {
   if (!granted) {
     res.statusCode = 401;
     res.json({ message: 'Dados incorretos.' });
+
     return;
   }
 
