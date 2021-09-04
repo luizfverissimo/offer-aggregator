@@ -30,6 +30,13 @@
 ```sh
 yarn # npm install
 ```
+* Add DATABASE_URL environment variable in .env file in ```/web/prisma/```
+* Add JWT_SECRET environment variable in .env file in ```/web/```
+
+```sh
+npx prisma init
+prisma migrate dev --name init
+```
 
 ## Usage
 
