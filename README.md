@@ -19,7 +19,7 @@
 ---
 ##### ⚙️ [Admin Panel - 🇺🇸](https://offers-aggregator-git-internationalization.luizfverissimo.vercel.app/admin)
 ##### ⚙️ [Admin Panel - 🇧🇷](https://offers-aggregator.vercel.app/admin)
-* **User:** user@test.com
+* **User:** user@admin.com
 * **Password:** 12345678
 
 ## Screenshots
